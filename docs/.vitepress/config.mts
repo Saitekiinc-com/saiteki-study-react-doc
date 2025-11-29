@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default defineConfig({
+export default withMermaid({
   base: '/saiteki-doc/',
   title: "React/TS Training",
   description: "New Engineer Training Portal",
