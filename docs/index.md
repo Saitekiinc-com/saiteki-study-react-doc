@@ -5,6 +5,7 @@
 ## はじめに
 
 このサイトは、ReactとTypeScriptを効率的に学び、実務で活躍できるエンジニアになるためのロードマップと資料を提供します。
+(Powered by VitePress & GitHub Actions)
 
 ## コンテンツ
 
