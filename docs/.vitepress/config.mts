@@ -14,6 +14,7 @@ export default defineConfig({
       {
         text: 'Curriculum',
         items: [
+          { text: 'Lv.1 Knowledge', link: '/training/curriculum/level1_knowledge' },
           { text: '01. Basics', link: '/training/curriculum/01_basics' },
           { text: '02. Practical', link: '/training/curriculum/02_practical' },
           { text: 'Skill Pyramid', link: '/training/curriculum/skill_pyramid' },
