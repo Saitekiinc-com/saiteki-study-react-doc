@@ -16,8 +16,11 @@ export default withMermaid({
         text: 'Curriculum',
         items: [
           { text: 'Lv.1 Knowledge', link: '/training/curriculum/level1_knowledge' },
-          { text: '01. Basics', link: '/training/curriculum/01_basics' },
-          { text: '02. Practical', link: '/training/curriculum/02_practical' },
+          { text: 'Lv.2 Application', link: '/training/curriculum/level2_application' },
+          { text: 'Lv.3 Quality', link: '/training/curriculum/level3_quality' },
+          { text: 'Lv.4 Architecture', link: '/training/curriculum/level4_architecture' },
+          { text: '01. Basics (Legacy)', link: '/training/curriculum/01_basics' },
+          { text: '02. Practical (Legacy)', link: '/training/curriculum/02_practical' },
           { text: 'Skill Pyramid', link: '/training/curriculum/skill_pyramid' },
         ]
       },
