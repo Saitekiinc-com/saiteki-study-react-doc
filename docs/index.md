@@ -1,23 +1,23 @@
-# React/TypeScript 研修ポータル
+# Saiteki Engineering Training
 
-ようこそ！ここは新人エンジニア向けの研修資料ポータルです。
-
-## はじめに
-
-このサイトは、ReactとTypeScriptを効率的に学び、実務で活躍できるエンジニアになるためのロードマップと資料を提供します。
-(Powered by VitePress & GitHub Actions)
+新人エンジニア向けの総合研修ポータルです。
+フロントエンド、バックエンド、インフラまで、実務に必要な技術を段階的に学習できます。
 
 ## コンテンツ
 
-### 📚 [カリキュラム](/training/curriculum/level1_knowledge)
-基礎から実践まで、段階的に学べるモジュールです。
+### ⚛️ [Frontend (React/TS)](/training/curriculum/level1_knowledge)
 *   **Lv.1 基礎**: ドキュメントの理解と仕組みの把握。
 *   **Lv.2 応用**: アプリ開発・動作保証。
 *   **Lv.3 発展**: 品質・保守性・パフォーマンス。
 *   **Lv.4 エキスパート**: アーキテクチャ・技術選定。
-*   **スキルピラミッド**: 目指すべきスキルレベルの全体像。
 
-### 🤝 [マネジメント](/training/management/progress_tracker)
+### 🔙 [Backend](/training/backend/index)
+*   (準備中) API設計、DB設計など
+
+### ☁️ [AWS / Infra](/training/aws/index)
+*   (準備中) AWS基礎、IaCなど
+
+### 🤝 [Management](/training/management/progress_tracker)
 メンターと研修生のためのツールです。
 *   **進捗管理シート**: スキルチェックと週次振り返り。
 *   **メンタリングガイド**: 効果的な指導のための指針。

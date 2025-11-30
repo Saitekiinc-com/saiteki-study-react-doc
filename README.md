@@ -1,10 +1,10 @@
-# React/TypeScript Training Documentation
+# Saiteki Engineering Training Documentation
 
-新人エンジニア向け研修資料（React/TypeScript）のリポジトリです。
+新人エンジニア向け研修資料（Frontend/Backend/AWS）のリポジトリです。
 VitePressを使用して構築されており、GitHub Pagesで公開されています。
 
 ## 🔗 公開URL
-**[https://Saitekiinc-com.github.io/saiteki-study-react-doc/](https://Saitekiinc-com.github.io/saiteki-study-react-doc/)**
+**[https://Saitekiinc-com.github.io/saiteki-study-doc/](https://Saitekiinc-com.github.io/saiteki-study-doc/)**
 
 ## 🚀 更新・デプロイ方法
 このリポジトリの `main` ブランチにプッシュすると、GitHub Actionsが自動的にビルドを行い、公開サイトを更新します。
