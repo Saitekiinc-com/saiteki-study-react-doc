@@ -20,18 +20,16 @@ export default withMermaid({
         items: [
           { text: 'AI Native Engineering', link: '/training/ai_native_guide' },
           { text: 'Data Flow & System Design', link: '/training/data_flow_guide' },
-          { text: 'Lv.1 Knowledge', link: '/training/curriculum/level1_knowledge' },
+          { text: 'Lv.1 Foundation', link: '/training/curriculum/level1_foundation' },
           { text: 'Lv.2 Application', link: '/training/curriculum/level2_application' },
           { text: 'Lv.3 Quality', link: '/training/curriculum/level3_quality' },
           { text: 'Lv.4 Architecture', link: '/training/curriculum/level4_architecture' },
-          { text: 'Skill Pyramid', link: '/training/curriculum/skill_pyramid' },
         ]
       },
       {
         text: 'Backend',
-        collapsed: true,
+        collapsed: false,
         items: [
-          { text: 'Lv.1 Foundation', link: '/training/backend/level1_foundation' },
           { text: 'Lv.2 Application', link: '/training/backend/level2_application' },
           { text: 'Lv.3 Quality', link: '/training/backend/level3_quality' },
           { text: 'Lv.4 Architecture', link: '/training/backend/level4_architecture' },
