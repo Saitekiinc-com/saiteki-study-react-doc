@@ -5,14 +5,19 @@
 
 ## コンテンツ
 
-### ⚛️ [Frontend (React/TS)](/training/curriculum/level1_knowledge)
-*   **Lv.1 基礎**: ドキュメントの理解と仕組みの把握。
-*   **Lv.2 応用**: アプリ開発・動作保証。
-*   **Lv.3 発展**: 品質・保守性・パフォーマンス。
-*   **Lv.4 エキスパート**: アーキテクチャ・技術選定。
+### 📚 [Curriculum (Fullstack)](/training/curriculum/level1_foundation)
+フロントエンドとバックエンドを統合した、実践的なフルスタックカリキュラムです。
 
-### 🔙 [Backend](/training/backend/index)
-*   (準備中) API設計、DB設計など
+*   **Lv.1 基礎**: Web標準、JS/TS、React、DBの仕組み。
+*   **Lv.2 応用**: アプリケーション開発と動作保証。
+*   **Lv.3 品質**: テスト、パフォーマンス、セキュリティ。
+*   **Lv.4 エキスパート**: アーキテクチャ、インフラ、DevOps。
+
+### 🤖 [AI Native Engineering](/training/ai_native_guide)
+AI時代に求められるエンジニアの役割とスキルについての指針です。
+
+### 🔄 [Data Flow & System Design](/training/data_flow_guide)
+システム全体のデータの流れと、各フェーズでの設計観点について。
 
 ### ☁️ [AWS / Infra](/training/aws/index)
 *   (準備中) AWS基礎、IaCなど
@@ -29,4 +34,4 @@
 
 ## 開始方法
 
-左側のメニューから「Curriculum」>「Lv.1 Knowledge」を選択して学習を始めてください。
+左側のメニューから **「Curriculum (Fullstack)」 > 「Lv.1 Foundation」** を選択して学習を始めてください。

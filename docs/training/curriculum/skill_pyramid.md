@@ -1,6 +1,6 @@
 # React/TypeScript スキルピラミッド
 
-このドキュメントでは、React/TypeScriptエンジニアとして成長するためのロードマップを、ピラミッド型の階層構造で示します。
+このドキュメントでは、エンジニアとして成長するためのロードマップを、ピラミッド型の階層構造で示します。
 下層のスキルが上層のスキルの土台となります。
 
 ## スキルピラミッド図
@@ -43,22 +43,27 @@ flowchart TD
     style Application fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px
     style Advanced fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
     style Expert fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+
+    click Foundation "/saiteki-study-doc/training/curriculum/level1_foundation" "Lv.1へ移動"
+    click Application "/saiteki-study-doc/training/curriculum/level2_application" "Lv.2へ移動"
+    click Advanced "/saiteki-study-doc/training/curriculum/level3_quality" "Lv.3へ移動"
+    click Expert "/saiteki-study-doc/training/curriculum/level4_architecture" "Lv.4へ移動"
 ```
 
 ## レベル別詳細解説
 
-### Lv.1 基礎 (Foundation): ドキュメントの理解
-**目標**: 公式ドキュメントを読み解き、技術の仕組み（Why/What）を正しく理解できる。
+### [Lv.1 基礎 (Foundation)](/training/curriculum/level1_foundation)
+**目標**: Webアプリケーション全体の仕組み（Why/What）を正しく理解できる。
 *   コードを書く前に、それが「なぜ動くのか」「どういう仕組みなのか」を説明できる状態を目指します。
 
-### Lv.2 応用 (Application): アプリ開発・動作保証
-**目標**: エラーなくアプリを開発し、動作することを確認できる。
-*   要件定義通りに機能を実装し、バグが発生しても自力で解決できる能力を養います。
+### [Lv.2 応用 (Application)](/training/curriculum/level2_application)
+**目標**: フロントエンドとバックエンドを連携させ、要件を満たすアプリケーションを独力で実装できる。
+*   UI実装からAPI/DB操作までを一気通貫で行い、エラーが発生しても自力で解決できる能力を養います。
 
-### Lv.3 発展 (Advanced): 品質・保守性・パフォーマンス
-**目標**: 保守性の高いコードやパフォーマンスを意識した設計ができる。
-*   「動けばいい」から一歩進んで、将来の変更に強く、ユーザー体験の良いコードを書くことを目指します。
+### [Lv.3 発展 (Advanced)](/training/curriculum/level3_quality)
+**目標**: パフォーマンスとセキュリティを考慮し、将来にわたって保守しやすい高品質なシステムを設計できる。
+*   「動けばいい」から一歩進んで、テスト、パフォーマンス、セキュリティを担保したプロフェッショナルなコードを書きます。
 
-### Lv.4 エキスパート (Expert): アーキテクチャ・技術選定
-**目標**: アーキテクチャの設計や技術選定ができる。
-*   プロジェクト全体の構造を俯瞰し、最適な技術やツールを選び取る判断力を養います。
+### [Lv.4 エキスパート (Expert)](/training/curriculum/level4_architecture)
+**目標**: システム全体のアーキテクチャを設計し、ビジネス要件に最適な技術選定と開発環境を構築できる。
+*   プロジェクト全体の構造を俯瞰し、インフラやDevOpsを含めた全体最適化をリードします。
