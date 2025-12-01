@@ -1,59 +1,60 @@
 # Lv.4 エキスパート: アーキテクチャ・技術選定
 
-Lv.4のゴールは、<strong>「アーキテクチャの設計や技術選定ができること」</strong>です。
-プロジェクトの要件や規模に合わせて最適な技術スタックを選び、チーム全体が開発しやすい土台を作ります。
+Lv.4のゴールは、<strong>「システム全体のアーキテクチャを設計し、ビジネス要件に最適な技術選定と開発環境を構築できること」</strong>です。
+コードだけでなく、インフラ、開発プロセス、チームの生産性までを含めた全体最適化を担います。
 
-## 1. フロントエンドアーキテクチャ
-大規模になっても破綻しない構造を設計します。
-
-### 学習項目
-*   **デザインパターン**:
-    *   Container/Presentational Pattern。
-    *   Render Props, HOC (Higher-Order Components) - ※現代ではHooksで代替されることも多いが知識として必要。
-*   **ディレクトリ構成とアーキテクチャ**:
-    *   **Atomic Design**: UIを原子・分子・生体などに分ける考え方。
-    *   **Feature-Sliced Design (FSD)**: 機能（Feature）ごとに分割する、大規模向けアーキテクチャ。
-    *   **Colocation**: 関連するファイル（テスト、スタイル、コンポーネント）を近くに置く原則。
-
-### チェックリスト
-- [ ] プロジェクトの規模感に合わせて、適切なディレクトリ構成を提案できる。
-- [ ] Atomic Designのメリットとデメリットを説明できる。
-- [ ] 循環参照を防ぐためのモジュール依存関係を設計できる。
-
-## 2. 技術選定とエコシステム
-流行り廃りではなく「適材適所」で技術を選びます。
+## 1. システムアーキテクチャ (System Design)
+スケーラブルで堅牢なシステムを設計します。
 
 ### 学習項目
+*   **アーキテクチャパターン**:
+    *   **フロントエンド**: Atomic Design, Feature-Sliced Design (FSD)。
+    *   **バックエンド**: クリーンアーキテクチャ, ドメイン駆動設計 (DDD)。
+*   **システム構成**:
+    *   モノリス vs マイクロサービス（採用基準とトレードオフ）。
+    *   非同期処理とメッセージキュー (SQS, Kafka) による疎結合化。
 *   **レンダリング戦略**:
-    *   CSR (Client-Side Rendering), SSR (Server-Side Rendering), SSG (Static Site Generation), ISR (Incremental Static Regeneration) の違いと使い分け。
-    *   Next.js / Remix などのフレームワーク選定。
-*   **スタイリング戦略**:
-    *   CSS Modules, CSS-in-JS (Styled-components, Emotion), Utility-first (Tailwind CSS) の比較選定。
-*   **ビルドツール**:
-    *   Vite, Webpack, Turbopack の違い。
+    *   CSR, SSR, SSG, ISR の使い分け（SEO vs インタラクティブ性）。
 
 ### チェックリスト
-- [ ] SEOが重要なLPと、インタラクティブな管理画面で、それぞれ適したレンダリング戦略を選べる。
-- [ ] チームのスキルセットを考慮して、CSSフレームワークを選定できる。
+- [ ] プロジェクトの規模に合わせて、適切なディレクトリ構成とアーキテクチャを提案できる。
+- [ ] 重い処理（メール送信など）を非同期ジョブとして切り出す設計ができる。
+- [ ] 依存性逆転の原則 (DIP) を理解し、テスタブルな設計ができる。
 
-## 3. 開発プロセスとスケーラビリティ
-チーム全体の生産性を向上させます。
+## 2. インフラとDevOps (Cloud & Operations)
+コードが動く「場所」と「プロセス」を作ります。
 
 ### 学習項目
-*   **マイクロフロントエンド**:
-    *   巨大なアプリを複数の小さなアプリに分割する技術。
-*   **モノレポ (Monorepo)**:
-    *   Nx, TurboRepo などを使った複数プロジェクトの管理。
-*   **開発体験 (DX) の向上**:
-    *   ESLint, Prettier のカスタムルール設定。
-    *   CI/CDパイプラインの構築（自動テスト、自動デプロイ、プレビュー環境）。
-    *   Storybook によるUIカタログ管理。
+*   **クラウドインフラ (AWS)**:
+    *   IaC (Terraform/CDK) によるインフラのコード化。
+    *   コンテナ技術 (Docker) とオーケストレーション。
+*   **CI/CDパイプライン**:
+    *   GitHub Actions による自動テスト・自動デプロイ。
+    *   Linter/Formatter (ESLint, Prettier) の強制による品質維持。
+*   **可観測性 (Observability)**:
+    *   ログ、メトリクス、トレーシングの収集と監視アラート設定。
 
 ### チェックリスト
-- [ ] チーム内で統一されたコーディング規約を策定し、Linterで強制できる。
-- [ ] GitHub Actionsを使って、Pull Request時に自動でテストが走るフローを構築できる。
+- [ ] Dockerfileを書いてアプリケーションをコンテナ化できる。
+- [ ] Pull Request作成時に自動でテストが走るCI環境を構築できる。
+- [ ] サーバーの異常を検知して通知する仕組みを設計できる。
+
+## 3. 技術選定とチーム開発
+技術でビジネス課題を解決し、チームをリードします。
+
+### 学習項目
+*   **技術選定眼**:
+    *   流行り廃りではなく「適材適所」で選ぶ（CSS-in-JS vs Tailwind, Next.js vs Remix）。
+    *   エコシステムの成熟度や将来性の評価。
+*   **開発体験 (DX) の向上**:
+    *   モノレポ (Nx, TurboRepo) による大規模管理。
+    *   Storybook によるUIカタログとドキュメント化。
+
+### チェックリスト
+- [ ] チームのスキルセットや要件を考慮して、最適な技術スタックを選定・説明できる。
+- [ ] 統一されたコーディング規約を策定し、チームに浸透させることができる。
 
 ## 推奨学習リソース
-*   **[Feature-Sliced Design](https://feature-sliced.design/)**
-*   **[Next.js Documentation](https://nextjs.org/docs)**
-*   **[Atomic Design by Brad Frost](https://bradfrost.com/blog/post/atomic-web-design/)**
+*   **[Feature-Sliced Design](https://feature-sliced.design/)**: 大規模向けフロントエンド設計。
+*   **[AWS Well-Architected Framework](https://aws.amazon.com/jp/architecture/well-architected/)**: クラウド設計のベストプラクティス。
+*   **[12 Factor App](https://12factor.net/ja/)**: モダンなWebアプリの原則。

@@ -15,7 +15,7 @@ export default withMermaid({
 
     sidebar: [
       {
-        text: 'Frontend (React/TS)',
+        text: 'Curriculum (Fullstack)',
         collapsed: false,
         items: [
           { text: 'AI Native Engineering', link: '/training/ai_native_guide' },
@@ -27,19 +27,10 @@ export default withMermaid({
         ]
       },
       {
-        text: 'Backend',
+        text: 'AWS / Infrastructure',
         collapsed: false,
         items: [
-          { text: 'Lv.2 Application', link: '/training/backend/level2_application' },
-          { text: 'Lv.3 Quality', link: '/training/backend/level3_quality' },
-          { text: 'Lv.4 Architecture', link: '/training/backend/level4_architecture' },
-        ]
-      },
-      {
-        text: 'AWS / Infrastructure',
-        collapsed: true,
-        items: [
-          { text: 'Overview', link: '/training/aws/index' },
+          { text: 'Introduction', link: '/training/aws/index' },
         ]
       },
       {
