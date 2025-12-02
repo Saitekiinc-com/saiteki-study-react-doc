@@ -15,8 +15,10 @@ AIを使えば、専門外のコードも書くことができます。
 
 | 挑む領域 (Target) | 目的 (Why) | AI任せの時の盲点 (Blind Spot) | 推奨カリキュラム (Action) |
 | :--- | :--- | :--- | :--- |
-| **Backend** | **「UXのためのパフォーマンス最適化」**<br>理想のUIを実現するために、最適なAPIレスポンスとDB構造を自分で設計する。 | **「データ整合性とセキュリティ」**<br>AIは動くSQLを書くが、排他制御（トランザクション）やN+1問題、不適切なバリデーションを見落とす。 | **[Lv.2 Application (Backend)](/training/curriculum/level2_application)**<br>DB設計とAPI実装。 |
-| **Infra** | **「デリバリー速度の向上」**<br>CDN設定やエッジコンピューティングを使いこなし、コンテンツを最速でユーザーに届ける。 | **「権限管理」**<br>AIは「全開放」で設定しがち。セキュリティ事故のリスク。 | **[AWS / Infra](/training/aws/index)**<br>CDN, IAM, VPC。 |
+| **Backend: API Design** | **「UIに最適化されたデータ構造」**<br>BFF (Backend For Frontend) の視点で、オーバーフェッチやN+1を防ぐAPIを設計する。 | **「パフォーマンスの無視」**<br>必要なデータだけを効率よく取得する視点が抜け、無駄な通信が発生する。 | **[Lv.2 Application (Backend)](/training/curriculum/level2_application)**<br>API設計とBFF。 |
+| **Backend: DB Schema** | **「データの整合性」**<br>UIの状態とDBの状態を正しくマッピングする。 | **「正規化の欠如」**<br>画面の都合だけでテーブルを作り、データの重複や不整合を招く。 | **[Lv.2 Application (Backend)](/training/curriculum/level2_application)**<br>DB設計と正規化。 |
+| **Infra: Delivery (CDN)** | **「最速のレンダリング」**<br>静的アセットのキャッシュ戦略を制御する。 | **「キャッシュ事故」**<br>古いコンテンツが残り続ける、またはキャッシュが効いていない。 | **[AWS / Infra](/training/aws/index)**<br>CDNとキャッシュ戦略。 |
+| **Infra: Security** | **「安全な通信」**<br>CORSやWAFの設定。 | **「設定ミスによる脆弱性」**<br>開発環境の設定（全許可）を本番に持ち込む。 | **[AWS / Infra](/training/aws/index)**<br>セキュリティ設定。 |
 | **QA** | **「非機能要件の担保」**<br>見た目だけでなく、エッジケースや異常系でも壊れない堅牢なUIを作る。 | **「Happy Pathのみのテスト」**<br>異常系の考慮漏れ。 | **[Lv.3 Quality](/training/curriculum/level3_quality)**<br>E2Eテスト。 |
 
 ---
@@ -29,8 +31,10 @@ AIを使えば、専門外のコードも書くことができます。
 
 | 挑む領域 (Target) | 目的 (Why) | AI任せの時の盲点 (Blind Spot) | 推奨カリキュラム (Action) |
 | :--- | :--- | :--- | :--- |
-| **Frontend** | **「データの価値最大化」**<br>自分が設計したデータが、ユーザーにどう解釈され、操作されるかを理解し、API設計にフィードバックする。 | **「UXとインタラクション」**<br>AIは指示通りのUIを作るが、「使い勝手（Loading、エラー表示）」や「再レンダリングの無駄」は考慮しない。 | **[Lv.1 Foundation (UI)](/training/curriculum/level1_foundation)**<br>Reactのメンタルモデル。<br>**[Lv.2 Application](/training/curriculum/level2_application)**<br>フォームとUX実装。 |
-| **Infra** | **「信頼性の担保」**<br>コードだけでなく、それが動く基盤（コンテナ、ネットワーク）まで含めて可用性を設計する。 | **「モダンなクラウド構成」**<br>オンプレ脳でEC2を立ててしまい、マネージドサービスの恩恵を逃す。 | **[AWS / Infra](/training/aws/index)**<br>クラウドネイティブ設計。 |
+| **Frontend: Components** | **「再利用性と保守性」**<br>変更に強いUIコンポーネントを設計する。 | **「コピペ実装」**<br>似たようなコードが散乱し、デザイン変更に追従できない。 | **[Lv.1 Foundation (UI)](/training/curriculum/level1_foundation)**<br>コンポーネント設計。 |
+| **Frontend: State** | **「複雑な状態管理」**<br>非同期データとクライアント状態（ローディング、エラー）を適切に扱う。 | **「競合状態 (Race Condition)」**<br>連打時の挙動や、古いデータの上書きを考慮しない。 | **[Lv.2 Application](/training/curriculum/level2_application)**<br>状態管理と非同期処理。 |
+| **Infra: Compute** | **「モダンな実行環境」**<br>Serverlessやコンテナを活用し、運用コストを下げる。 | **「スケーラビリティの欠如」**<br>ステートフルな設計にしてしまい、スケールアウトできない。 | **[AWS / Infra](/training/aws/index)**<br>コンテナとサーバーレス。 |
+| **Infra: Observability** | **「運用監視」**<br>ログやトレースを仕込み、障害時に即座に原因を特定する。 | **「デバッグ情報の不足」**<br>エラーログが出ない、あるいはノイズが多すぎる。 | **[AWS / Infra](/training/aws/index)**<br>ログ設計と監視。 |
 | **QA** | **「ロジックの完全性」**<br>複雑なビジネスルールやデータ整合性が、あらゆるエッジケースで守られることを保証する。 | **「境界値と競合状態の無視」**<br>AIは単純なUnit Testは書くが、並列処理時の競合や、複雑な状態遷移のテストケースを見落とす。 | **[Lv.3 Quality](/training/curriculum/level3_quality)**<br>テスト戦略と結合テスト。 |
 
 ---
