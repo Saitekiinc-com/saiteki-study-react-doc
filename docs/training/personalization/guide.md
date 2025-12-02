@@ -32,14 +32,17 @@ AIを使えば、専門外のコードも書くことができます。しかし
 
 ---
 
-## 3. ☁️ For Infra/QA Engineers (運用・品質出身)
-**"コードを書く" 側に来た時の壁**
+## 3. 🧪 For QA Engineers (品質保証出身)
+**"最後の砦" から "品質の設計者 (Quality Architect)" へ**
 
-あなたはシステムの安定性を守るプロですが、アプリケーションコードの「保守性」に不慣れな場合があります。
+QAの役割は「出来上がったもののチェック」だけではありません。
+AIを活用することで、**開発プロセス全体に品質を組み込む（Shift Left）** ことが可能です。
 
-| 挑む領域 (Target) | AI任せの時の盲点 (Blind Spot) | 推奨カリキュラム (Action) |
-| :--- | :--- | :--- |
-| **App Dev** | **「アーキテクチャと可読性」**<br>動くスクリプトは書けますが、アプリケーションとしての構造化（コンポーネント設計、レイヤー分離）が苦手で、巨大な「神クラス」を作りがちです。 | **[Lv.4 Architecture](/training/curriculum/level4_architecture)**<br>設計パターンとリファクタリング。 |
+| 挑む領域 (Target) | 期待される役割 (New Role) | AI任せの時の盲点 (Blind Spot) | 推奨カリキュラム (Action) |
+| :--- | :--- | :--- | :--- |
+| **Unit/Integration**<br>(Frontend/Backend) | **「テスト戦略の策定」**<br>開発者が書くUTのレビューや、結合テストの自動化をリードする。AIにテストコードを書かせる際の「網羅性」を担保する。 | **「Happy Pathしかテストしない」**<br>AIは正常系テストは得意だが、異常系や境界値テストを見落とす。 | **[Lv.3 Quality](/training/curriculum/level3_quality)**<br>テスト戦略と自動化。 |
+| **Infra** | **「インフラのテスト (IaC Testing)」**<br>Terraformのセキュリティチェック（Trivyなど）や、負荷試験（k6）のシナリオ作成。 | **「非機能要件の無視」**<br>機能は動くが、スパイクアクセスで落ちる構成になっていないか？ | **[AWS / Infra](/training/aws/index)**<br>負荷試験とセキュリティ。 |
+| **CI/CD** | **「品質ゲートの自動化」**<br>パイプラインに自動テストやセキュリティスキャンを組み込み、バグを早期発見する。 | **「パイプラインの形骸化」**<br>落ちても無視されるテストや、遅すぎるビルド。 | **[Lv.4 Architecture](/training/curriculum/level4_architecture)**<br>CI/CDとDevOps。 |
 
 ---
 
