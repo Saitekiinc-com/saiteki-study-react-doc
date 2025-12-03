@@ -140,8 +140,8 @@ ${context}
   console.error("\n--- Generated Roadmap ---\n");
   console.log(generatedText);
 
-  // Output to a file for GitHub Actions to pick up if needed, or just stdout is fine for now.
-  // We will likely capture stdout in the workflow.
+  // Output to a file for GitHub Actions to pick up reliably
+  fs.writeFileSync('roadmap_body.md', generatedText);
 }
 
 main();

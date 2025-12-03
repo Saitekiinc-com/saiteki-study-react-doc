@@ -61,16 +61,8 @@ jobs:
           # A safer way is to have the script write to a specific file, but let's try to parse.
 
           # For now, let's just use the whole output but strip the logs if possible.
-          # Actually, let's modify the script to write to a file 'roadmap.md' to be safe.
-          # Since I cannot modify the script in this step easily, I will rely on the script outputting logs to stdout.
-          # Wait, I can modify the script in the previous step or just accept logs in the issue body for debug (not ideal).
-
-          # Let's just use the file output logic.
-          # I will assume the script outputs logs to stdout.
-          # I will edit the script in the next turn to write to a file or use stderr for logs.
-          # For now, I will just capture everything.
-
-          cat roadmap_output.md
+          # Run script (it now writes to roadmap_body.md)
+          node scripts/generate-roadmap.js
 
       - name: Ensure Label Exists
         env:
@@ -82,10 +74,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Extract the content after "--- Generated Roadmap ---"
-          sed -n '/--- Generated Roadmap ---/,$p' roadmap_output.md | tail -n +2 > issue_body.md
-
           gh issue create \
             --title "学習ロードマップ: ${{ inputs.role }} (${{ inputs.experience }})" \
-            --body-file issue_body.md \
+            --body-file roadmap_body.md \
             --label "learning-roadmap"
