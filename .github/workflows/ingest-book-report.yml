@@ -33,7 +33,7 @@ jobs:
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
           commit-message: "feat: add book report from issue #${{ github.event.issue.number }}"
           title: "feat: add book report '${{ github.event.issue.title }}'"
           body: |
