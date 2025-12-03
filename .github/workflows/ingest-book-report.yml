@@ -40,6 +40,8 @@ jobs:
             This PR adds a new book report generated from Issue #${{ github.event.issue.number }}.
 
             Original Issue: ${{ github.event.issue.html_url }}
+
+            Closes #${{ github.event.issue.number }}
           branch: "book-report/issue-${{ github.event.issue.number }}"
           base: main
           labels: "documentation"
