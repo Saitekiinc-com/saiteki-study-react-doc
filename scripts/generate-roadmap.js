@@ -33,7 +33,7 @@ async function main() {
 
   const genAI = new GoogleGenerativeAI(apiKey);
   const embeddingModel = genAI.getGenerativeModel({ model: "embedding-001" });
-  const generationModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const generationModel = genAI.getGenerativeModel({ model: "gemini-pro" });
 
   // 1. Load Vectors
   if (!fs.existsSync(VECTORS_FILE)) {
