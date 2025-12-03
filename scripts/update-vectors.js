@@ -41,6 +41,9 @@ async function main() {
         }
       });
       console.log(`Vectorized: ${filename}`);
+
+      // Add delay to avoid hitting rate limits (Free Tier)
+      await new Promise(resolve => setTimeout(resolve, 2000));
     } catch (error) {
       console.error(`Error embedding ${filename}:`, error);
     }
