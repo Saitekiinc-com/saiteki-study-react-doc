@@ -37,6 +37,19 @@ body:
       required: true
 
   - type: textarea
+    id: objective
+    attributes:
+      label: 達成したい目標 (Objective / Goal)
+      description: |
+        具体的に作りたいものや、成し遂げたいことを書いてください。
+        例: 個人開発でメモアプリを作りたい、チームのCI/CDパイプラインを整備したい、など。
+      placeholder: |
+        自作のタスク管理アプリをAWS上にデプロイして公開したい。
+        そのために必要なインフラ知識と、バックエンドの実装力をつけたい。
+    validations:
+      required: true
+
+  - type: textarea
     id: current_understanding
     attributes:
       label: わかっていること (Current Understanding)
@@ -59,18 +72,5 @@ body:
       placeholder: |
         - React: useEffectの依存配列の挙動が怪しい。パフォーマンスチューニングがわからない。
         - Backend: DBのインデックス設計やN+1問題の解決方法がわからない。
-    validations:
-      required: true
-
-  - type: textarea
-    id: objective
-    attributes:
-      label: 達成したい目標 (Objective / Goal)
-      description: |
-        具体的に作りたいものや、成し遂げたいことを書いてください。
-        例: 個人開発でメモアプリを作りたい、チームのCI/CDパイプラインを整備したい、など。
-      placeholder: |
-        自作のタスク管理アプリをAWS上にデプロイして公開したい。
-        そのために必要なインフラ知識と、バックエンドの実装力をつけたい。
     validations:
       required: true
