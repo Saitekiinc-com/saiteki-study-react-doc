@@ -1,4 +1,4 @@
-name: Generate Roadmap from Issue
+name: Book Search Request
 
 on:
   issues:
@@ -11,7 +11,7 @@ concurrency:
 jobs:
   generate:
     runs-on: ubuntu-latest
-    if: github.event.label.name == 'roadmap-request'
+    if: github.event.label.name == 'book-search-request'
     permissions:
       issues: write
       contents: read
@@ -61,7 +61,7 @@ jobs:
             core.setOutput('current_unknowns', current_unknowns);
             core.setOutput('objective', objective);
 
-      - name: Generate Roadmap
+      - name: Generate Book Recommendations
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           USER_REQUEST: |
@@ -73,7 +73,7 @@ jobs:
             【達成したい目標】: ${{ steps.parse.outputs.objective }}
         run: |
           # Run script (writes to roadmap_body.md)
-          node scripts/generate-roadmap.js
+          node scripts/recommend-books.js
 
       - name: Rename Issue
         env:

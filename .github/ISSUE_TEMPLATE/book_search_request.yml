@@ -1,12 +1,12 @@
-name: 🗺 ロードマップ依頼 (Roadmap Request)
-description: あなたに合わせた学習ロードマップをAIが生成します。
-title: "🗺 ロードマップ依頼"
-labels: ["roadmap-request"]
+name: 📚 書籍探索依頼 (Book Search Request)
+description: あなたの課題を解決する最適な書籍をAIが提案します。
+title: "📚 書籍探索依頼"
+labels: ["book-search-request"]
 body:
   - type: markdown
     attributes:
       value: |
-        あなたのバックグラウンドと目標に合わせて、最適な学習ロードマップと推奨書籍を提案します。
+        あなたのバックグラウンドと目標に合わせて、最適な書籍を提案します。
         以下の項目を入力してIssueを作成してください。数分以内にコメントで回答が届きます。
 
   - type: input
