@@ -2,12 +2,16 @@ name: Generate Roadmap from Issue
 
 on:
   issues:
-    types: [labeled]
+    types: [opened, labeled]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.issue.number }}
+  cancel-in-progress: true
 
 jobs:
   generate:
     runs-on: ubuntu-latest
-    if: github.event.label.name == 'roadmap-request'
+    if: contains(github.event.issue.labels.*.name, 'roadmap-request')
     permissions:
       issues: write
       contents: read
