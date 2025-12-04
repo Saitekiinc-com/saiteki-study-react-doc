@@ -2,12 +2,12 @@ name: Generate Roadmap from Issue
 
 on:
   issues:
-    types: [opened, labeled]
+    types: [labeled]
 
 jobs:
   generate:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.labels.*.name, 'roadmap-request')
+    if: github.event.label.name == 'roadmap-request'
     permissions:
       issues: write
       contents: read
