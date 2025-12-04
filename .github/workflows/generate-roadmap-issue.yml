@@ -2,7 +2,7 @@ name: Generate Roadmap from Issue
 
 on:
   issues:
-    types: [opened, labeled]
+    types: [opened]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.issue.number }}
