@@ -1,6 +1,6 @@
 name: 🗺 ロードマップ依頼 (Roadmap Request)
 description: あなたに合わせた学習ロードマップをAIが生成します。
-title: "🗺 ロードマップ依頼: [お名前]"
+title: "🗺 ロードマップ依頼"
 labels: ["roadmap-request"]
 body:
   - type: markdown
