@@ -293,38 +293,62 @@ async function checkLinksInText(text) {
 async function isUrlAlive(url) {
   try {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 5000);
-    const res = await fetch(url, { method: 'HEAD', signal: controller.signal, headers: { 'User-Agent': 'Bot/1.0' } });
+    const timeout = setTimeout(() => controller.abort(), 8000); // 8s timeout
+    // Always use GET with a realistic User-Agent to avoid "Bot Check" false positives (which return 200 OK)
+    // and to catch "Soft 404" pages (which return 200 OK but say "Page Not Found").
+    const res = await fetch(url, {
+        method: 'GET',
+        signal: controller.signal,
+        headers: {
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+            'Accept-Language': 'ja,en-US;q=0.9,en;q=0.8'
+        }
+    });
     clearTimeout(timeout);
 
-    if (res.ok) return { alive: true, status: res.status };
-    if (res.status === 404 || res.status === 410) return { alive: false, status: res.status };
+    const status = res.status;
 
-    // If 405/403/etc, try GET
-    if (res.status === 405 || res.status >= 400) {
-       const controllerGet = new AbortController();
-       const timeoutGet = setTimeout(() => controllerGet.abort(), 5000);
-       // Use a more realistic User-Agent to try and bypass simple blocks
-       const resGet = await fetch(url, { method: 'GET', signal: controllerGet.signal, headers: { 'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36' } });
-       clearTimeout(timeoutGet);
+    // 1. Hard 404/410 -> Dead
+    if (status === 404 || status === 410) return { alive: false, status: status };
 
-       if (resGet.ok) return { alive: true, status: resGet.status };
-       if (resGet.status === 404 || resGet.status === 410) return { alive: false, status: resGet.status };
+    // 2. Blocked status codes -> Fallback Candidate
+    if (status === 403 || status === 503 || status === 999) return { alive: true, status: status };
 
-       // If blocked (403, 503, 999), return ALIVE but with status code so caller can decide
-       if (resGet.status === 403 || resGet.status === 503 || resGet.status === 999) {
-           return { alive: true, status: resGet.status };
-       }
+    // 3. 200 OK? We must check the content for Soft 404s or Captchas.
+    if (res.ok) {
+        const text = await res.text();
 
-       // Other errors? Default to alive/unknown
-       return { alive: true, status: resGet.status };
+        // Amazon Soft 404 checks
+        if (text.includes("ページが見つかりません") ||
+            text.includes("Amazon.co.jp | Page Not Found") ||
+            text.includes("申し訳ございません。入力されたウェブアドレスは当社サイトの有効なページではないか") ||
+            text.includes("Looking for something?")) {
+            console.error(`[Soft 404 Detected] Content indicates page not found: ${url}`);
+            return { alive: false, status: 404 };
+        }
+
+        // Amazon Captcha/Robot Check (often returns 200 OK)
+        if (text.includes("Enter the characters you see below") ||
+            text.includes("Amazon.co.jp - Robot Check") ||
+            text.includes("ロボット確認")) {
+            console.warn(`[Content Block Detected] Content indicates Robot Check: ${url}`);
+            // Treat as "Blocked" so we fallback to Search Link
+            return { alive: true, status: 503 };
+        }
+
+        // Looks real
+        return { alive: true, status: 200 };
     }
-    return { alive: true, status: res.status };
+
+    // Default for other codes (e.g. 500 server error) -> Treat as blocking -> fallback.
+    if (status >= 500) return { alive: true, status: 503 };
+
+    return { alive: true, status: status };
   } catch (e) {
     console.error(`Check failed for ${url}: ${e.message}`);
-    // Network error could mean anything. Let's assume Dead to be safe?
-    // Or return status 0 (Network Error).
-    return { alive: false, status: 0 };
+    // Network error could mean anything. Let's assume Blocked/Transient -> Fallback Search Link
+    return { alive: true, status: 503 };
   }
 }
 
