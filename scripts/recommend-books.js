@@ -253,7 +253,7 @@ ${userRequest}
     // Let's implement a simple loop to handle function calls.
 
     // Max turns to prevent infinite loops
-    let maxTurns = 5;
+    let maxTurns = 10;
     let turn = 0;
 
     while (result.response.functionCalls() && turn < maxTurns) {
@@ -286,6 +286,12 @@ ${userRequest}
                 }
             ]);
         }
+    }
+
+    // Check if the loop ended because of tool call limit but model still wants to call tool
+    if (result.response.functionCalls()) {
+        console.warn("Max tool turns reached. Forcing response generation.");
+        result = await chat.sendMessage("検索はこれで十分です。ここまでに見つかった書籍情報だけを使って、今すぐ回答を作成してください。");
     }
 
     const response = await result.response;
