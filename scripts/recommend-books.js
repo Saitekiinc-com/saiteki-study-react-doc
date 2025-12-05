@@ -217,11 +217,97 @@ ${context}
     process.exit(1);
   }
 
+  // 5. Verify URLs (Liveness Check)
+  console.error("--- Verifying URLs ---");
+  generatedText = await checkLinksInText(generatedText);
+
   console.error("\n--- Generated Roadmap ---\n");
   console.log(generatedText);
 
   // Output to a file for GitHub Actions to pick up reliably
   fs.writeFileSync('roadmap_body.md', generatedText);
+}
+
+// Helper: Verify URLs in Markdown
+async function checkLinksInText(text) {
+  const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
+  const rawUrlRegex = /(?:参照元URL.*?)((?:https?:\/\/)[^\s]+)/g; // Naive match for Source URL lines
+
+  let newText = text;
+
+  // 1. Check Markdown Links
+  const markdownMatches = [...newText.matchAll(linkRegex)];
+  const markdownChecks = markdownMatches.map(async (match) => {
+    const fullMatch = match[0];
+    const label = match[1];
+    const url = match[2];
+    const isAlive = await isUrlAlive(url);
+    return { fullMatch, label, url, isAlive, type: 'markdown' };
+  });
+
+  // 2. Check Raw URLs (in Source URL context)
+  // We re-run regex or careful replacement to avoid double-replacing if raw URL was part of markdown link (unlikely with this regex but possible)
+  // For simplicity, let's just do markdown links first, then see if we have raw URLs left.
+  // Actually, standardizing on Markdown links for the prompt output was the right move.
+  // Let's stick effectively to checking things that look like links.
+
+  const results = await Promise.all(markdownChecks);
+
+  for (const res of results) {
+    if (!res.isAlive) {
+      console.error(`[Dead Link Detected] ${res.url}`);
+      // Replace with a warning
+      newText = newText.replace(res.fullMatch, `[${res.label} (⚠️リンク切れ)](https://www.google.com/search?q=${encodeURIComponent(res.label)})`);
+    } else {
+        console.error(`[Link OK] ${res.url}`);
+    }
+  }
+
+  // Also check raw URLs specifically in reference lines if they aren't markdown links
+  // This is a bit looser, so we'll do a simple pass for "Reference URL: https://..."
+  const rawMatches = [...newText.matchAll(/🔗 参照元URL(?:[^:]*): (https?:\/\/[^\s\n]+)/g)];
+  for (const match of rawMatches) {
+      const fullMatch = match[0];
+      const url = match[1];
+      // Skip if it was already checked as part of a markdown link (simple heuristic: if it's in the results)
+      if (results.some(r => r.url === url)) continue;
+
+      const isAlive = await isUrlAlive(url);
+      if (!isAlive) {
+          console.error(`[Dead Raw Link Detected] ${url}`);
+          newText = newText.replace(fullMatch, `🔗 参照元URL: (⚠️リンク切れ: ${url})`);
+      } else {
+          console.error(`[Raw Link OK] ${url}`);
+      }
+  }
+
+  return newText;
+}
+
+async function isUrlAlive(url) {
+  try {
+    // Try HEAD first
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000); // 5s timeout
+    const res = await fetch(url, { method: 'HEAD', signal: controller.signal, headers: { 'User-Agent': 'Bot/1.0' } });
+    clearTimeout(timeout);
+
+    if (res.ok) return true;
+    if (res.status === 404 || res.status === 410) return false;
+
+    // If 405 Method Not Allowed or other error, try GET
+    if (res.status === 405 || res.status === 403 || res.status >= 400) {
+       const controllerGet = new AbortController();
+       const timeoutGet = setTimeout(() => controllerGet.abort(), 5000);
+       const resGet = await fetch(url, { method: 'GET', signal: controllerGet.signal, headers: { 'User-Agent': 'Bot/1.0' } });
+       clearTimeout(timeoutGet);
+       return resGet.ok;
+    }
+    return true; // Assume ok if weird status but not 404
+  } catch (e) {
+    console.error(`Check failed for ${url}: ${e.message}`);
+    return false;
+  }
 }
 
 main();
