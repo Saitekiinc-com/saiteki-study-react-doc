@@ -170,7 +170,8 @@ ${context}
   // Configure Grounding Tool
   const tools = [
     {
-      googleSearch: {}
+      googleSearch: {},
+      urlContext: {}
     }
   ];
 
