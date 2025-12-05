@@ -62,6 +62,15 @@ jobs:
             core.setOutput('current_unknowns', current_unknowns);
             core.setOutput('objective', objective);
 
+      - name: Debug Parsed Values
+        run: |
+          echo "Name: ${{ steps.parse.outputs.name }}"
+          echo "Role: ${{ steps.parse.outputs.role }}"
+          echo "Experience: ${{ steps.parse.outputs.experience }}"
+          echo "Understanding: ${{ steps.parse.outputs.current_understanding }}"
+          echo "Unknowns: ${{ steps.parse.outputs.current_unknowns }}"
+          echo "Objective: ${{ steps.parse.outputs.objective }}"
+
       - name: Generate Book Recommendations
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

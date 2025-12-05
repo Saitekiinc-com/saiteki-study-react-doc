@@ -33,6 +33,10 @@ async function main() {
   }
 
   // Check for empty fields in the request string (simple heuristic)
+  console.log("--- Debug: Received USER_REQUEST ---");
+  console.log(userRequest);
+  console.log("-----------------------------------");
+
   if (userRequest.includes('【役割】: \n') || userRequest.includes('【達成したい目標】: \n')) {
       console.warn('Warning: Some user request fields appear to be empty. Check issue parsing logic.');
   }
