@@ -228,60 +228,108 @@ ${context}
   fs.writeFileSync('roadmap_body.md', generatedText);
 }
 
-// Helper: Verify URLs in Markdown
+// Helper: Verify URLs and Filter Sections
 async function checkLinksInText(text) {
-  const linkRegex = /\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g;
-  const rawUrlRegex = /(?:参照元URL.*?)((?:https?:\/\/)[^\s]+)/g; // Naive match for Source URL lines
+  // 1. Split text into common parts and book sections
+  // Heuristic: Books start with "### \d+\. 📖"
+  // We need to capture the preamble (everything before the first book)
+  const bookHeaderRegex = /(### \d+\. 📖.*)/;
+  const parts = text.split(bookHeaderRegex);
 
-  let newText = text;
+  // parts[0] is preamble. Subsequent parts depend on split behavior with capture group.
+  // split with capture group returns [preamble, match, rest, match, rest...] or similar depending on implementation.
+  // Let's use a manual approach for robustness.
 
-  // 1. Check Markdown Links
-  const markdownMatches = [...newText.matchAll(linkRegex)];
-  const markdownChecks = markdownMatches.map(async (match) => {
-    const fullMatch = match[0];
-    const label = match[1];
-    const url = match[2];
-    const isAlive = await isUrlAlive(url);
-    return { fullMatch, label, url, isAlive, type: 'markdown' };
+  const sections = [];
+  let currentPos = 0;
+  let match;
+  // Global regex for book headers
+  const headerRegexGlobal = /### \d+\. 📖/g;
+
+  let lastIndex = 0;
+  while ((match = headerRegexGlobal.exec(text)) !== null) {
+      // Push content before this match as a "preamble" or "interim" section
+      if (match.index > lastIndex) {
+          sections.push({ type: 'text', content: text.substring(lastIndex, match.index) });
+      }
+      // Determine where this section ends (at next header or end of string)
+      const start = match.index;
+      // We need to look ahead for the next match
+      const nextMatchIndex = text.indexOf('### ', start + 1); // Simple lookahead for next header (adjust regex if needed)
+      // Actually, let's just use the regex loop. The `lastIndex` of the regex object is updated after exec.
+      // But we need the content *between* headers.
+
+      // Simpler approach: Split by the header pattern but keep delimiters.
+  }
+
+  // Let's try an even simpler approach: Regex based splitting is tricky to keep structure.
+  // Let's use `split` but wrapped to handle the logic.
+
+  const splitPattern = /(?=### \d+\. 📖)/;
+  // Lookahead split! logic: Splitting at the position where the pattern matches, keeping the pattern in the next chunk.
+  const chunks = text.split(splitPattern);
+
+  const processedChunks = await Promise.all(chunks.map(async (chunk, index) => {
+    // If it doesn't look like a book section, return as is (preamble and postscripts)
+    if (!chunk.trim().match(/^### \d+\. 📖/)) {
+        return chunk;
+    }
+
+    // It is a book section. Identify the "Source URL".
+    // 🔗 参照元URL(出版社など): {URL}
+    const sourceUrlMatch = chunk.match(/🔗 参照元URL.*?: (https?:\/\/[^\s\n]+)/);
+
+    if (sourceUrlMatch) {
+        const url = sourceUrlMatch[1];
+        // Special check: If user typed "example.com" or standard placeholders, ignore or fail?
+        // We assume valid URLs.
+
+        const isAlive = await isUrlAlive(url);
+        if (!isAlive) {
+            console.error(`[Filtering Rule] Dropping book section due to Dead Source URL: ${url}`);
+            // Return empty string strings effectively removing the section.
+            // We might want to return a strict placeholder? No, user wants it gone.
+            return '';
+        }
+        console.error(`[Filtering Rule] Keeping book section. Source URL OK: ${url}`);
+    } else {
+        console.warn(`[Filtering Rule] No Source URL found in book section. Keeping it, but this might be risky.`);
+    }
+
+    // Secondary check: Are there ANY dead Amazon links in the title?
+    // If the title link is dead, but source is OK... we might just strip the link?
+    // User asked "Don't introduce books that don't exist".
+    // If Source URL exists, book likely exists. If Amazon link is dead, it's just a bad link.
+    // Let's run the previous logic to annotate broken internal links just in case,
+    // BUT specific to this chunk.
+
+    // We can reuse a mini-version of the link checker here if needed,
+    // but the main requirement is dropping the book if the SOURCE is bad.
+
+    return chunk;
+  }));
+
+  // Rejoin and fix numbering
+  // If we removed book #2, book #3 should probably become #2?
+  // Or current prompt output numbers them hardcoded?
+  // If we drop #1, and #2 remains... it might look weird "### 2. ...".
+  // Let's try to re-number.
+
+  let finalJoined = processedChunks.join('');
+
+  // Renumbering pass
+  let bookCount = 1;
+  finalJoined = finalJoined.replace(/### \d+\. 📖/g, () => {
+      return `### ${bookCount++}. 📖`;
   });
 
-  // 2. Check Raw URLs (in Source URL context)
-  // We re-run regex or careful replacement to avoid double-replacing if raw URL was part of markdown link (unlikely with this regex but possible)
-  // For simplicity, let's just do markdown links first, then see if we have raw URLs left.
-  // Actually, standardizing on Markdown links for the prompt output was the right move.
-  // Let's stick effectively to checking things that look like links.
-
-  const results = await Promise.all(markdownChecks);
-
-  for (const res of results) {
-    if (!res.isAlive) {
-      console.error(`[Dead Link Detected] ${res.url}`);
-      // Replace with a warning
-      newText = newText.replace(res.fullMatch, `[${res.label} (⚠️リンク切れ)](https://www.google.com/search?q=${encodeURIComponent(res.label)})`);
-    } else {
-        console.error(`[Link OK] ${res.url}`);
-    }
+  // If all books were removed... we should probably say "No books found".
+  if (bookCount === 1 && chunks.length > 1) {
+       // chunks > 1 means we had potential books, but bookCount stayed 1 means we dropped all.
+       finalJoined += "\n\n(※ 提案された書籍の参照元URLが検証できなかったため、すべて除外されました。検索条件を見直してください。)\n";
   }
 
-  // Also check raw URLs specifically in reference lines if they aren't markdown links
-  // This is a bit looser, so we'll do a simple pass for "Reference URL: https://..."
-  const rawMatches = [...newText.matchAll(/🔗 参照元URL(?:[^:]*): (https?:\/\/[^\s\n]+)/g)];
-  for (const match of rawMatches) {
-      const fullMatch = match[0];
-      const url = match[1];
-      // Skip if it was already checked as part of a markdown link (simple heuristic: if it's in the results)
-      if (results.some(r => r.url === url)) continue;
-
-      const isAlive = await isUrlAlive(url);
-      if (!isAlive) {
-          console.error(`[Dead Raw Link Detected] ${url}`);
-          newText = newText.replace(fullMatch, `🔗 参照元URL: (⚠️リンク切れ: ${url})`);
-      } else {
-          console.error(`[Raw Link OK] ${url}`);
-      }
-  }
-
-  return newText;
+  return finalJoined;
 }
 
 async function isUrlAlive(url) {
