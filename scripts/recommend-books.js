@@ -295,13 +295,23 @@ async function isUrlAlive(url) {
     if (res.ok) return true;
     if (res.status === 404 || res.status === 410) return false;
 
+    // If 403 Forbidden or 503 Service Unavailable, it's likely bot protection (Amazon/Cloudflare).
+    // Treat as "Alive" (or at least "Not 404") to avoid false positives.
+    if (res.status === 403 || res.status === 503) return true;
+
     // If 405 Method Not Allowed or other error, try GET
-    if (res.status === 405 || res.status === 403 || res.status >= 400) {
+    if (res.status === 405 || res.status >= 400) {
        const controllerGet = new AbortController();
        const timeoutGet = setTimeout(() => controllerGet.abort(), 5000);
-       const resGet = await fetch(url, { method: 'GET', signal: controllerGet.signal, headers: { 'User-Agent': 'Bot/1.0' } });
+       const resGet = await fetch(url, { method: 'GET', signal: controllerGet.signal, headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Bot/1.0)' } });
        clearTimeout(timeoutGet);
-       return resGet.ok;
+
+       if (resGet.ok) return true;
+       // Again, if GET returns 403/503, assume alive.
+       if (resGet.status === 403 || resGet.status === 503 || resGet.status === 999) return true;
+       if (resGet.status === 404 || resGet.status === 410) return false;
+
+       return true; // Default to true for other weird errors to be safe
     }
     return true; // Assume ok if weird status but not 404
   } catch (e) {
