@@ -32,6 +32,11 @@ async function main() {
     process.exit(1);
   }
 
+  // Check for empty fields in the request string (simple heuristic)
+  if (userRequest.includes('【役割】: \n') || userRequest.includes('【達成したい目標】: \n')) {
+      console.warn('Warning: Some user request fields appear to be empty. Check issue parsing logic.');
+  }
+
   const genAI = new GoogleGenerativeAI(apiKey);
   const embeddingModel = genAI.getGenerativeModel({ model: "embedding-001" });
 

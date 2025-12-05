@@ -42,17 +42,18 @@ jobs:
             // Helper to extract value from Issue Form body
             // Issue Forms format: ### Label\n\nValue\n\n
             function extractValue(label) {
-              const regex = new RegExp(`### ${label}\\s+([\\s\\S]*?)(?:###|$)`);
+              // Match ### Label (anything until newline) \n\n (Value) \n\n (next ### or end)
+              const regex = new RegExp(`###\\s*${label}[^\\n]*\\n+([\\s\\S]*?)(?:###|$)`);
               const match = body.match(regex);
               return match ? match[1].trim() : '';
             }
 
             const name = extractValue('お名前');
-            const role = extractValue('役割 (Role)');
+            const role = extractValue('役割');
             const experience = extractValue('経験年数');
-            const current_understanding = extractValue('わかっていること \\(Current Understanding\\)');
-            const current_unknowns = extractValue('わかっていないこと \\(Current Challenges/Unknowns\\)');
-            const objective = extractValue('達成したい目標 \\(Objective / Goal\\)');
+            const current_understanding = extractValue('わかっていること');
+            const current_unknowns = extractValue('わかっていないこと');
+            const objective = extractValue('達成したい目標');
 
             core.setOutput('name', name);
             core.setOutput('role', role);
