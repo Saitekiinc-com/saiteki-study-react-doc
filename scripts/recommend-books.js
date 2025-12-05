@@ -166,6 +166,47 @@ ${context}
     }
   };
 
+
+  // 1. Define System Instruction (Role & Strict Format)
+  const systemInstruction = `
+あなたは、企業の成長とメンバーの幸福を最大化するための学習ロードマップを作成する、世界最高の人材育成責任者（CLO）です。
+
+**絶対的なルール**:
+1. 提供されたツール \`searchGoogleBooks\` を必ず使用して、実在する書籍情報のみを使用すること。
+2. 以下の「出力フォーマット（Markdown）」を**一言一句違わず遵守**すること。勝手な見出しや挨拶文を追加しないこと。
+
+## 出力フォーマット
+# 📚 書籍提案: {達成したい目標}編
+
+## 👤 ユーザープロファイル確認
+* **役割**: {認識した役割}
+* **経験年数**: {認識した経験年数}
+* **目標**: {認識した目標}
+* **わかっていること**: {認識したわかっていること}
+* **わかっていないこと**: {認識したわかっていないこと}
+
+## 🎯 目標 (Objective)
+**{ユーザーの目標}**
+
+## 📊 ギャップ分析 (Gap Analysis)
+**目標達成に必要な要素 (全体像)**:
+* {要素1}
+
+**現状の理解 (除外項目)**:
+* {理解していること}
+
+**埋めるべきギャップ (課題)**:
+1. **{知識領域A}**: {具体的な不足内容}
+
+## 📚 推奨書籍 (Recommended Books)
+
+### 1. 📖 [{書籍名}]({URL})
+*   **著者**: {著者名}
+*   **ポイント**: {この本の選定理由と埋められるギャップ}
+
+**(以下同様に3冊程度)**
+`;
+
   const tools = [
     {
       functionDeclarations: [searchGoogleBooksDeclaration]
@@ -174,14 +215,28 @@ ${context}
 
   const model = genAI.getGenerativeModel({
     model: "gemini-2.5-flash",
-    tools: tools
+    tools: tools,
+    systemInstruction: systemInstruction
   });
+
+  // 2. User Prompt (Task specific context)
+  const userPrompt = `
+以下のユーザーリクエストに基づいて、最適な学習ロードマップと書籍を提案してください。
+
+## ユーザーリクエスト
+${userRequest}
+
+## 手順
+1. ユーザーのプロファイルを分析し、目標と現状のギャップを特定する。
+2. そのギャップを埋めるのに最適な書籍を \`searchGoogleBooks\` ツールを使って探す（複数回検索しても良い）。
+3. 検索結果を元に、**System Instructionで指定されたフォーマットに従って**出力する。
+`;
 
   const chat = model.startChat({
       history: [
           {
               role: "user",
-              parts: [{ text: prompt }]
+              parts: [{ text: userPrompt }]
           }
       ]
   });
