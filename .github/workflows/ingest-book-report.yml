@@ -22,6 +22,7 @@ jobs:
           node-version: '20'
 
       - name: Create Book Report Markdown
+        id: generator
         env:
           ISSUE_TITLE: ${{ github.event.issue.title }}
           ISSUE_BODY: ${{ github.event.issue.body }}
@@ -35,7 +36,7 @@ jobs:
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
           commit-message: "feat: add book report from issue #${{ github.event.issue.number }}"
-          title: "feat: add book report '${{ github.event.issue.title }}'"
+          title: "feat: add book report '${{ steps.generator.outputs.book_title }}'"
           body: |
             This PR adds a new book report generated from Issue #${{ github.event.issue.number }}.
 
