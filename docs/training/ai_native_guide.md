@@ -80,8 +80,8 @@ AIを活用することで、エンジニアは単なる「作業者」から「
 
 | 挑む領域 (Target) | 目的 (Why) | AI任せの時の盲点 (Blind Spot) | 推奨カリキュラム (Action) |
 | :--- | :--- | :--- | :--- |
-| **Backend: API Design** | **「UIに最適化されたデータ構造」**<br>BFF (Backend For Frontend) の視点で、オーバーフェッチやN+1を防ぐAPIを設計する。 | **「パフォーマンスの無視」**<br>必要なデータだけを効率よく取得する視点が抜け、無駄な通信が発生する。 | **[Lv.2 Application (Backend)](/training/curriculum/level2_application)**<br>API設計とBFF。 |
-| **Backend: DB Schema** | **「データの整合性」**<br>UIの状態とDBの状態を正しくマッピングする。 | **「正規化の欠如」**<br>画面の都合だけでテーブルを作り、データの重複や不整合を招く。 | **[Lv.2 Application (Backend)](/training/curriculum/level2_application)**<br>DB設計と正規化。 |
+| **Backend: API Design** | **「待ち時間ゼロのUX改善」**<br>「APIが遅い」と依頼して待つのではなく、自らN+1を特定・修正し、**UXへの執念**を実装に反映させる。UIに最適化されたBFFを設計する。 | **「パフォーマンスの無視」**<br>必要なデータだけを効率よく取得する視点が抜け、無駄な通信が発生する。 | **[Lv.2 Application (Backend)](/training/curriculum/level2_application)**<br>API設計とBFF。 |
+| **Backend: DB Schema** | **「データの整合性とUXの両立」**<br>「DB的には正しいが画面表示が遅い」を防ぐ。必要な場面では意図的な非正規化を行うなど、UX起点のスキーマ設計を行う。 | **「正規化の欠如」**<br>画面の都合だけでテーブルを作り、データの重複や不整合を招く。 | **[Lv.2 Application (Backend)](/training/curriculum/level2_application)**<br>DB設計と正規化。 |
 | **Infra: Delivery (CDN)** | **「最速のレンダリング」**<br>静的アセットのキャッシュ戦略を制御する。 | **「キャッシュ事故」**<br>古いコンテンツが残り続ける、またはキャッシュが効いていない。 | **[AWS / Infra](/training/aws/index)**<br>CDNとキャッシュ戦略。 |
 | **Infra: Security** | **「安全な通信」**<br>CORSやWAFの設定。 | **「設定ミスによる脆弱性」**<br>開発環境の設定（全許可）を本番に持ち込む。 | **[AWS / Infra](/training/aws/index)**<br>セキュリティ設定。 |
 | **QA** | **「非機能要件の担保」**<br>見た目だけでなく、エッジケースや異常系でも壊れない堅牢なUIを作る。 | **「Happy Pathのみのテスト」**<br>異常系の考慮漏れ。 | **[Lv.3 Quality](/training/curriculum/level3_quality)**<br>E2Eテスト。 |
