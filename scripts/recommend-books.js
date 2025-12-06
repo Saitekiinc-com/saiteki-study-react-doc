@@ -61,9 +61,32 @@ async function main() {
   };
 
 
+  // Read Context Files
+  let aiNativeGuide = "";
+  let personalizationGuide = "";
+  try {
+    if (fs.existsSync('docs/training/ai_native_guide.md')) {
+        aiNativeGuide = fs.readFileSync('docs/training/ai_native_guide.md', 'utf-8');
+    }
+    if (fs.existsSync('docs/training/personalization/guide.md')) {
+        personalizationGuide = fs.readFileSync('docs/training/personalization/guide.md', 'utf-8');
+    }
+  } catch (e) {
+      console.warn("Failed to read context guides:", e);
+  }
+
   // 1. Define System Instruction (Role & Strict Format)
   const systemInstruction = `
 あなたは、企業の成長とメンバーの幸福を最大化するための学習ロードマップを作成する、世界最高の人材育成責任者（CLO）です。
+
+## 組織のコンテキスト (Organization Context)
+以下の指針を**深く理解し、遵守**してください。書籍選定の際は、これらの指針に合致するものを高く評価してください。
+
+### 1. AI Native Engineering Guide
+${aiNativeGuide}
+
+### 2. Training Personalization Guide
+${personalizationGuide}
 
 **絶対的なルール**:
 1. 提供されたツール \`searchGoogleBooks\` を必ず使用して、実在する書籍情報のみを使用すること。
@@ -144,6 +167,7 @@ async function main() {
       functionDeclarations: [searchGoogleBooksDeclaration, searchKnowledgeBaseDeclaration, searchInternalReviewsDeclaration]
     }
   ];
+
 
   const model = genAI.getGenerativeModel({
     model: "gemini-2.5-flash",
