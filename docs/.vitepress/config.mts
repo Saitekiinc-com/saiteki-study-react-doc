@@ -42,12 +42,7 @@ export default withMermaid({
           { text: 'Mentoring Guide', link: '/training/management/mentoring_guide' },
         ]
       },
-      {
-        text: 'Personalization',
-        items: [
-          { text: 'Guide', link: '/training/personalization/guide' },
-        ]
-      },
+
       {
         text: 'Guides',
         items: [
