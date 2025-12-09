@@ -27,10 +27,81 @@ style: |
 このドキュメントサイトは、単なる「感想文置き場」ではありません。
 あなたの**個人の学び**を、**チーム全体の課題解決**につなげるシステムです。
 
-1.  📖 **読む (Input)**: 課題解決のために本を読む
-2.  ✍️ **書く (Output)**: 学びをIssueに投稿する
-3.  🤖 **繋ぐ (Connect)**: AIが「悩み」と「解決策」を整理
-4.  🤝 **助ける (Impact)**: 仲間の困りごとを解決する
+<div class="cycle-container">
+  <div class="step step-1">
+    <div class="icon">📖</div>
+    <div class="label">1. 読む (Input)</div>
+    <div class="desc">課題解決のヒントを探す</div>
+  </div>
+  <div class="arrow arrow-right">➡</div>
+  <div class="step step-2">
+    <div class="icon">✍️</div>
+    <div class="label">2. 書く (Output)</div>
+    <div class="desc">学びをIssueに投稿</div>
+  </div>
+  <div class="arrow arrow-down">⬇</div>
+  <div class="step step-4">
+    <div class="icon">🤝</div>
+    <div class="label">4. 助ける (Impact)</div>
+    <div class="desc">仲間の悩みを解決！</div>
+  </div>
+  <div class="arrow arrow-left">⬅</div>
+  <div class="step step-3">
+    <div class="icon">🤖</div>
+    <div class="label">3. 繋ぐ (Connect)</div>
+    <div class="desc">AIが悩みと解決策を整理</div>
+  </div>
+</div>
+
+<style>
+.cycle-container {
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr;
+  grid-template-rows: 1fr 50px 1fr;
+  gap: 10px;
+  text-align: center;
+  margin-top: 20px;
+}
+.step {
+  border: 4px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.step-1 { border-color: #3498db; background: #eaf6ff; }
+.step-2 { border-color: #e67e22; background: #fff5e6; }
+.step-3 { border-color: #9b59b6; background: #f3e5f5; }
+.step-4 { border-color: #2ecc71; background: #e8f5e9; }
+
+.icon { font-size: 50px; margin-bottom: 10px; }
+.label { font-weight: bold; font-size: 24px; margin-bottom: 5px; color: #333; }
+.desc { font-size: 18px; color: #666; }
+
+.arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: #ccc;
+  font-weight: bold;
+}
+/* Grid Placement */
+.step-1 { grid-column: 1; grid-row: 1; }
+.arrow-right { grid-column: 2; grid-row: 1; }
+.step-2 { grid-column: 3; grid-row: 1; }
+
+.arrow-down { grid-column: 3; grid-row: 2; }
+
+.step-3 { grid-column: 3; grid-row: 3; }
+.arrow-left { grid-column: 2; grid-row: 3; transform: rotate(180deg); } /* Left arrow trick if standard char missing */
+.step-4 { grid-column: 1; grid-row: 3; }
+
+</style>
 
 ---
 
