@@ -291,7 +291,6 @@ AIが、あなたの感想文を読み取り、検索可能な**ベクトルデ�
 </div>
 
 <div class="caption">
-<span class="reason-highlight">仕組み:</span>
 全文をそのままベクトル化するとノイズになります。<br>
 <strong>「検索用の要約（Chunk）」</strong>を個別に作ることで、あなたの「悩み」にズバリ適中する高精度なマッチングを実現します。
 </div>
