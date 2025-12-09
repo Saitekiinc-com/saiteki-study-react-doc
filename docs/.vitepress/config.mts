@@ -40,6 +40,7 @@ export default withMermaid({
         text: 'Guides',
         items: [
           { text: 'Book Features', link: '/guide/book-features' },
+          { text: 'RAG Mechanism (Slides)', link: '/guide/rag_mechanism_slide' },
         ]
       }
     ],
