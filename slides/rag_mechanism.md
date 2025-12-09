@@ -147,19 +147,34 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
 
 ---
 
-## 3. 🤖 繋ぐ：AI司書の仕事 (裏側)
+## 3. 🤖 繋ぐ：AIによる情報の整理 (裏側)
 
 <div class="split-container">
-  <div class="source-doc">
-    <div class="icon">📄</div>
-    <div class="label">読書感想文</div>
-    <div class="sub">（全文）</div>
+  <!-- ユーザー -->
+  <div class="actor user">
+    <div class="actor-icon">👤</div>
+    <div class="actor-label">あなた</div>
+    <div class="doc-icon">📄</div>
   </div>
-  <div class="split-arrow">
-    <div class="scissors">✂️</div>
-    <div class="arrow-line">➡</div>
-    <div class="reason-label">検索用に<br>切り分け</div>
+
+  <!-- 矢印 -->
+  <div class="flow-arrow">
+    ➡ 投稿
   </div>
+
+  <!-- AI -->
+  <div class="actor ai">
+    <div class="actor-icon">🤖</div>
+    <div class="actor-label">AI</div>
+    <div class="scissors-action">✂️</div>
+  </div>
+
+  <!-- 矢印 -->
+  <div class="flow-arrow">
+    ➡ 整理
+  </div>
+
+  <!-- カード -->
   <div class="cards">
     <div class="card-group">
       <div class="card card-objective">
@@ -169,7 +184,7 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
           <div class="card-desc">「〜〜で困っている」</div>
         </div>
       </div>
-      <div class="match-arrow">⬅ <strong>「困った...」</strong> で検索した時にヒット</div>
+      <div class="match-arrow">⬅ <strong>「困った...」</strong> でヒット</div>
     </div>
     <div class="card-group">
       <div class="card card-solution">
@@ -179,14 +194,14 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
           <div class="card-desc">「〜〜が効果的だ」</div>
         </div>
       </div>
-      <div class="match-arrow">⬅ <strong>「知りたい！」</strong> で検索した時にヒット</div>
+      <div class="match-arrow">⬅ <strong>「知りたい！」</strong> でヒット</div>
     </div>
   </div>
 </div>
 
 <div class="caption">
   <span class="reason-highlight">理由: 検索意図に合わせるため</span><br>
-  「悩み」と「解決策」を分けることで、ノイズのない検索が可能になります。
+  AIが感想文を受け取り、自動で<strong>「悩み」</strong>と<strong>「解決策」</strong>に切り分けて保存します。
 </div>
 
 <style>
@@ -194,8 +209,46 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px; /* ギャップを広げる */
+  gap: 15px;
   margin-top: 10px;
+}
+.actor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background: #fff;
+  border-radius: 12px;
+  border: 2px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 100px;
+  position: relative;
+}
+.actor-icon { font-size: 50px; }
+.actor-label { font-weight: bold; margin-top: 5px; color: #333; }
+.doc-icon {
+  font-size: 30px;
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.scissors-action {
+  font-size: 30px;
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+.flow-arrow {
+  text-align: center;
+  font-size: 20px;
+  color: #ccc;
+  font-weight: bold;
 }
 .source-doc {
   background: #fdfefe;
