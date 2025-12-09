@@ -248,13 +248,13 @@ Issueテンプレートには、以下の項目を入力します。
 
 ## 3. 🤖 繋ぐ：AIによる情報の整理 (裏側)
 
-`update-vectors.js` が、あなたの感想文を読み取り、検索可能な**ベクトルデータ**に変換します。
+AIが、あなたの感想文を読み取り、検索可能な**ベクトルデータ**に変換します。
 
 <div class="pipeline-container">
   <!-- Input Phase -->
   <div class="phase input">
     <div class="phase-label">1. Input (Markdown)</div>
-    <div class="file-icon">📄 Issue</div>
+    <div class="file-icon">📄 読書感想文</div>
     <div class="code-snippet">
       ## 目的<br>
       テストが...<br>
@@ -267,7 +267,7 @@ Issueテンプレートには、以下の項目を入力します。
 
   <!-- Processing Phase -->
   <div class="phase processing">
-    <div class="phase-label">2. Vectorization (AI)</div>
+    <div class="phase-label">2. ベクトル化 (AI)</div>
     <div class="process-step">
       <div class="step-box">🧩 悩みChunk</div>
       <div class="step-arrow">➡️ 🤖 Embedding API ➡️</div>
@@ -292,7 +292,7 @@ Issueテンプレートには、以下の項目を入力します。
 
 <div class="caption">
 <span class="reason-highlight">仕組み:</span>
-感想文を**「悩みコンテキスト」**と**「解決策コンテキスト」**に分割し、それぞれを数値（ベクトル）化。<br>
+感想文を **「悩みコンテキスト」** と **「解決策コンテキスト」** に分割し、それぞれを数値（ベクトル）化。<br>
 これにより、「言葉が違っても意味が似ている」ものを探せるようになります。
 </div>
 
@@ -301,7 +301,7 @@ Issueテンプレートには、以下の項目を入力します。
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
   margin-top: 20px;
   font-size: 14px;
 }
@@ -314,10 +314,10 @@ Issueテンプレートには、以下の項目を入力します。
   flex-direction: column;
   align-items: center;
   min-height: 250px;
-  width: 28%;
+  width: 26%;
 }
 .input { border-color: #3498db; background: #ebf5fb; }
-.processing { border-color: #9b59b6; background: #f5eef8; width: 44%; }
+.processing { border-color: #9b59b6; background: #f5eef8; width: 38%; }
 .output { border-color: #2ecc71; background: #eafaf1; }
 
 .phase-label {
@@ -368,7 +368,7 @@ Issueテンプレートには、以下の項目を入力します。
   margin-top: 100px; /* Vertical align adjustment */
 }
 /* Adjust arrow for responsive/Marp aspect if simpler */
-.arrow { transform: none; margin: 0; padding-top: 120px; color: #666; }
+.arrow { transform: none; margin: 0; padding-top: 120px; color: #666; white-space: nowrap; }
 </style>
 
 
