@@ -248,160 +248,130 @@ Issueテンプレートには、以下の項目を入力します。
 
 ## 3. 🤖 繋ぐ：AIによる情報の整理 (裏側)
 
-<div class="split-container">
-<!-- 上段：アクターフロー -->
-<div class="actor-flow">
-<!-- ユーザー -->
-<div class="actor user">
-<div class="actor-icon">👤</div>
-<div class="actor-label">あなた</div>
-<div class="doc-icon">📄</div>
-</div>
-<!-- 矢印 -->
-<div class="flow-arrow vertical">⬇ 投稿</div>
-<!-- AI -->
-<div class="actor ai">
-<div class="actor-icon">🤖</div>
-<div class="actor-label">AI</div>
-<div class="scissors-action">✂️</div>
-</div>
-<!-- 矢印 -->
-<div class="flow-arrow vertical">⬇ 整理</div>
-</div>
-<!-- 下段：カード (横並び) -->
-<div class="cards horizontal-cards">
-<div class="card-group vertical-group">
-<div class="card card-objective">
-<div class="card-icon">😫</div>
-<div class="card-content">
-<div class="card-title">悩みカード</div>
-<div class="card-desc">「〜〜で困っている」</div>
-</div>
-</div>
-</div>
-<div class="card-group vertical-group">
-<div class="card card-solution">
-<div class="card-icon">💡</div>
-<div class="card-content">
-<div class="card-title">解決策カード</div>
-<div class="card-desc">「〜〜が効果的だ」</div>
-</div>
-</div>
-</div>
-</div>
+`update-vectors.js` が、あなたの感想文を読み取り、検索可能な**ベクトルデータ**に変換します。
+
+<div class="pipeline-container">
+  <!-- Input Phase -->
+  <div class="phase input">
+    <div class="phase-label">1. Input (Markdown)</div>
+    <div class="file-icon">📄 Issue</div>
+    <div class="code-snippet">
+      ## 目的<br>
+      テストが...<br>
+      ## 学び<br>
+      KISS原則が...
+    </div>
+  </div>
+
+  <div class="arrow">⬇ 解析 & 分割</div>
+
+  <!-- Processing Phase -->
+  <div class="phase processing">
+    <div class="phase-label">2. Vectorization (AI)</div>
+    <div class="process-step">
+      <div class="step-box">🧩 悩みChunk</div>
+      <div class="step-arrow">➡️ 🤖 Embedding API ➡️</div>
+      <div class="step-box vector">[0.1, 0.5, ...]</div>
+    </div>
+    <div class="process-step">
+      <div class="step-box">💡 解決Chunk</div>
+      <div class="step-arrow">➡️ 🤖 Embedding API ➡️</div>
+      <div class="step-box vector">[0.8, 0.2, ...]</div>
+    </div>
+  </div>
+
+  <div class="arrow">⬇ 保存</div>
+
+  <!-- Output Phase -->
+  <div class="phase output">
+    <div class="phase-label">3. Indexing (JSON)</div>
+    <div class="db-icon">🗄️ vectors.json</div>
+    <div class="desc">意味検索用インデックス</div>
+  </div>
 </div>
 
 <div class="caption">
-<span class="reason-highlight">理由: 検索意図に合わせるため</span><br>
-AIが感想文を<strong>ベクトル化（数値化）</strong>して保存。<br>
-これにより、キーワードだけでなく<strong>「意味」</strong>で探せる<strong>類似検索</strong>が可能になります。
+<span class="reason-highlight">仕組み:</span>
+感想文を**「悩みコンテキスト」**と**「解決策コンテキスト」**に分割し、それぞれを数値（ベクトル）化。<br>
+これにより、「言葉が違っても意味が似ている」ものを探せるようになります。
 </div>
 
 <style>
-.split-container {
+.pipeline-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 30px; /* 余白追加 */
-  transform: scale(0.9);
-  transform-origin: top center;
-}
-.actor-flow {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-.actor {
-  display: flex;
-  align-items: center;
-  padding: 10px 20px;
-  background: #fff;
-  border-radius: 12px;
-  border: 2px solid #ddd;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  min-width: 250px; /* 幅をカードに合わせる */
+  align-items: flex-start;
   justify-content: center;
   gap: 15px;
-  position: relative;
-}
-.actor-icon { font-size: 40px; }
-.actor-label { font-weight: bold; font-size: 24px; color: #333; margin-top: 0; }
-
-.doc-icon, .scissors-action {
-  font-size: 24px;
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  padding: 5px;
-}
-
-.flow-arrow.vertical {
-  font-size: 24px;
-  color: #ccc;
-  font-weight: bold;
-  margin: 0;
-}
-
-.cards.horizontal-cards {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  margin-top: 10px;
-}
-
-.card-group.vertical-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Rich Card Styling */
-.card {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 15px 20px;
-  border-radius: 16px; /* 丸みを強く */
-  min-width: 250px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* 強い影 */
-  border: 1px solid rgba(0,0,0,0.05); /* 薄い枠線 */
-  position: relative;
-  overflow: hidden;
-}
-
-/* Gradient Backgrounds */
-.card-objective {
-  background: linear-gradient(135deg, #fff5f5 0%, #ffeceb 100%);
-  border-left: 6px solid #e74c3c;
-}
-.card-solution {
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
-  border-left: 6px solid #2ecc71;
-}
-
-.card-icon { font-size: 32px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
-.card-content { display: flex; flex-direction: column; }
-.card-title { font-weight: bold; font-size: 20px; color: #333; }
-.card-desc { font-size: 16px; color: #666; margin-top: 2px; }
-
-.caption {
-  text-align: center;
   margin-top: 20px;
-  font-size: 18px;
-  color: #555;
+  font-size: 14px;
 }
-.reason-highlight {
-  color: #d63384;
+.phase {
+  background: #f8f9fa;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 250px;
+  width: 28%;
+}
+.input { border-color: #3498db; background: #ebf5fb; }
+.processing { border-color: #9b59b6; background: #f5eef8; width: 44%; }
+.output { border-color: #2ecc71; background: #eafaf1; }
+
+.phase-label {
   font-weight: bold;
-  border-bottom: 2px solid #d63384;
+  margin-bottom: 10px;
+  color: #555;
+  border-bottom: 2px solid rgba(0,0,0,0.1);
+  width: 100%;
+  text-align: center;
 }
+
+.file-icon { font-size: 40px; margin-bottom: 5px; }
+.code-snippet {
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 5px;
+  font-family: monospace;
+  font-size: 10px;
+  text-align: left;
+  width: 90%;
+  color: #333;
+}
+
+.process-step {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+  background: #fff;
+  padding: 5px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.step-box { font-weight: bold; font-size: 12px; }
+.step-box.vector { font-family: monospace; color: #e67e22; }
+.step-arrow { font-size: 10px; color: #999; }
+
+.db-icon { font-size: 40px; margin-top: 20px; }
+.desc { font-size: 12px; color: #666; text-align: center; }
+
+.arrow {
+  align-self: center;
+  font-weight: bold;
+  font-size: 20px;
+  color: #ccc;
+  transform: rotate(-90deg); /* Horizontal arrow */
+  margin-top: 100px; /* Vertical align adjustment */
+}
+/* Adjust arrow for responsive/Marp aspect if simpler */
+.arrow { transform: none; margin: 0; padding-top: 120px; color: #666; }
 </style>
+
+
 
 ---
 
