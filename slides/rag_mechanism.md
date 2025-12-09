@@ -150,61 +150,53 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
 ## 3. 🤖 繋ぐ：AIによる情報の整理 (裏側)
 
 <div class="split-container">
-  <!-- 上段：アクターフロー -->
-  <div class="actor-flow">
-    <!-- ユーザー -->
-    <div class="actor user">
-      <div class="actor-icon">👤</div>
-      <div class="actor-label">あなた</div>
-      <div class="doc-icon">📄</div>
-    </div>
-
-    <!-- 矢印 -->
-    <div class="flow-arrow vertical">
-      ⬇ 投稿
-    </div>
-
-    <!-- AI -->
-    <div class="actor ai">
-      <div class="actor-icon">🤖</div>
-      <div class="actor-label">AI</div>
-      <div class="scissors-action">✂️</div>
-    </div>
-
-    <!-- 矢印 -->
-    <div class="flow-arrow vertical">
-      ⬇ 整理
-    </div>
-  </div>
-
-  <!-- 下段：カード (横並び) -->
-  <div class="cards horizontal-cards">
-    <div class="card-group vertical-group">
-      <div class="card card-objective">
-        <div class="card-icon">😫</div>
-        <div class="card-content">
-          <div class="card-title">悩みカード</div>
-          <div class="card-desc">「〜〜で困っている」</div>
-        </div>
-      </div>
-      <div class="match-arrow up-arrow">⬆ <strong>「困った...」</strong> でヒット</div>
-    </div>
-    <div class="card-group vertical-group">
-      <div class="card card-solution">
-        <div class="card-icon">💡</div>
-        <div class="card-content">
-          <div class="card-title">解決策カード</div>
-          <div class="card-desc">「〜〜が効果的だ」</div>
-        </div>
-      </div>
-      <div class="match-arrow up-arrow">⬆ <strong>「知りたい！」</strong> でヒット</div>
-    </div>
-  </div>
+<!-- 上段：アクターフロー -->
+<div class="actor-flow">
+<!-- ユーザー -->
+<div class="actor user">
+<div class="actor-icon">👤</div>
+<div class="actor-label">あなた</div>
+<div class="doc-icon">📄</div>
+</div>
+<!-- 矢印 -->
+<div class="flow-arrow vertical">⬇ 投稿</div>
+<!-- AI -->
+<div class="actor ai">
+<div class="actor-icon">🤖</div>
+<div class="actor-label">AI</div>
+<div class="scissors-action">✂️</div>
+</div>
+<!-- 矢印 -->
+<div class="flow-arrow vertical">⬇ 整理</div>
+</div>
+<!-- 下段：カード (横並び) -->
+<div class="cards horizontal-cards">
+<div class="card-group vertical-group">
+<div class="card card-objective">
+<div class="card-icon">😫</div>
+<div class="card-content">
+<div class="card-title">悩みカード</div>
+<div class="card-desc">「〜〜で困っている」</div>
+</div>
+</div>
+<div class="match-arrow up-arrow">⬆ <strong>「困った...」</strong> でヒット</div>
+</div>
+<div class="card-group vertical-group">
+<div class="card card-solution">
+<div class="card-icon">💡</div>
+<div class="card-content">
+<div class="card-title">解決策カード</div>
+<div class="card-desc">「〜〜が効果的だ」</div>
+</div>
+</div>
+<div class="match-arrow up-arrow">⬆ <strong>「知りたい！」</strong> でヒット</div>
+</div>
+</div>
 </div>
 
 <div class="caption">
-  <span class="reason-highlight">理由: 検索意図に合わせるため</span><br>
-  AIが感想文を受け取り、自動で<strong>「悩み」</strong>と<strong>「解決策」</strong>に切り分けて保存します。
+<span class="reason-highlight">理由: 検索意図に合わせるため</span><br>
+AIが感想文を受け取り、自動で<strong>「悩み」</strong>と<strong>「解決策」</strong>に切り分けて保存します。
 </div>
 
 <style>
@@ -213,8 +205,10 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
   flex-direction: column; /* 縦並び */
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  margin-top: 5px;
+  gap: 5px; /* Gap削減 */
+  margin-top: 0px;
+  transform: scale(0.85); /* 全体を縮小 */
+  transform-origin: top center;
 }
 .actor-flow {
   display: flex;
@@ -225,7 +219,7 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
 .actor {
   display: flex;
   align-items: center; /* 横長にする */
-  padding: 10px 20px;
+  padding: 5px 20px 5px 20px; /* Padding削減, padding-bottom追加 */
   background: #fff;
   border-radius: 12px;
   border: 2px solid #ddd;
@@ -236,11 +230,11 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
   gap: 10px;
   position: relative;
 }
-.actor-icon { font-size: 40px; }
-.actor-label { font-weight: bold; font-size: 24px; color: #333; margin-top: 0; }
+.actor-icon { font-size: 36px; } /* アイコンサイズ縮小 */
+.actor-label { font-weight: bold; font-size: 20px; color: #333; margin-top: 0; }
 
 .doc-icon, .scissors-action {
-  font-size: 24px;
+  font-size: 20px;
   position: absolute;
   top: -10px;
   right: -10px;
@@ -251,7 +245,7 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
 }
 
 .flow-arrow.vertical {
-  font-size: 20px;
+  font-size: 18px;
   color: #ccc;
   font-weight: bold;
   margin: 0;
@@ -260,21 +254,21 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
 .cards.horizontal-cards {
   display: flex;
   flex-direction: row; /* カードは横並び */
-  gap: 20px;
-  margin-top: 10px;
+  gap: 15px;
+  margin-top: 5px;
 }
 
 .card-group.vertical-group {
   display: flex;
   flex-direction: column; /* カードと説明は縦並び */
   align-items: center;
-  gap: 5px;
+  gap: 2px;
 }
 
 .card {
   /* 既存のスタイルを維持しつつ調整 */
-  padding: 10px 15px;
-  min-width: 250px; /* 少し狭く */
+  padding: 8px 12px;
+  min-width: 240px; /* 少し狭く */
 }
 
 .match-arrow.up-arrow {
