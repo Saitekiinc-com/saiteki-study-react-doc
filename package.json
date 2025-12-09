@@ -7,7 +7,7 @@
     "docs:dev": "npm run build:slides && vitepress dev docs",
     "docs:build": "npm run build:slides && vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "build:slides": "mkdir -p docs/public/slides && marp docs/guide/rag_mechanism_slide.md -o docs/public/slides/rag_mechanism.html --no-stdin"
+    "build:slides": "mkdir -p docs/public/slides && marp slides/rag_mechanism.md -o docs/public/slides/rag_mechanism.html --no-stdin"
   },
   "keywords": [],
   "author": "",
