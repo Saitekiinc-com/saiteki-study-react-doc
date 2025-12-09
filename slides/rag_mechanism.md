@@ -268,6 +268,105 @@ Issueを書くとき、以下の2つが重要な「検索キー」になりま�
 
 ---
 
+## 3-2. 活用例：なぜ分けるのか？
+
+「カード」に分けることで、目的に応じて使い分けることができます。
+
+<div class="use-cases">
+  <div class="use-case case-analysis">
+    <div class="case-title">🅰️ 組織課題の分析</div>
+    <div class="case-visual">
+      <div class="card-stack card-objective">😫悩み</div>
+      <div class="card-stack card-objective">😫悩み</div>
+      <div class="card-stack card-objective">😫悩み</div>
+    </div>
+    <div class="case-desc">全社員の<strong>「悩みカード」</strong>だけを集めれば、<br>「今、組織で何が起きているか？」<br>が一目瞭然になります。</div>
+  </div>
+  <div class="use-case case-solution">
+    <div class="case-title">🅱️ ピンポイント解決</div>
+    <div class="case-visual">
+      <div class="query-box">Q. バグが治らない...</div>
+      <div class="arrow-down">⬇ Match!</div>
+      <div class="card-single card-solution">💡解決策カード</div>
+    </div>
+    <div class="case-desc">特定の悩みに対して、<br>最適な<strong>「解決策カード」</strong>だけを<br>ヒットさせることができます。</div>
+  </div>
+</div>
+
+<style>
+.use-cases {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 30px;
+}
+.use-case {
+  background: #fff;
+  border: 4px solid #eee;
+  border-radius: 16px;
+  padding: 20px;
+  width: 45%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.case-title {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+.case-visual {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  background: #fafafa;
+  border-radius: 8px;
+  position: relative;
+}
+.card-stack {
+  width: 200px;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  color: #c0392b;
+  background: #fdedec;
+  border: 2px solid #e74c3c;
+  margin-top: -35px; /* 重ねる */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-weight: bold;
+}
+.card-stack:first-child { margin-top: 0; }
+.card-single {
+  width: 200px;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  color: #27ae60;
+  background: #eafaf1;
+  border: 2px solid #2ecc71;
+  font-weight: bold;
+}
+.query-box {
+  background: #eee;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+.arrow-down { font-weight: bold; color: #ccc; margin-bottom: 5px; }
+.case-desc {
+  font-size: 18px;
+  color: #555;
+  text-align: center;
+  line-height: 1.5;
+}
+</style>
+
+---
+
 ## 4. 🤝 助ける：書籍探索依頼
 
 困ったときは、**Issue** でAI司書に相談できます。
