@@ -150,33 +150,36 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
 ## 3. 🤖 繋ぐ：AIによる情報の整理 (裏側)
 
 <div class="split-container">
-  <!-- ユーザー -->
-  <div class="actor user">
-    <div class="actor-icon">👤</div>
-    <div class="actor-label">あなた</div>
-    <div class="doc-icon">📄</div>
+  <!-- 上段：アクターフロー -->
+  <div class="actor-flow">
+    <!-- ユーザー -->
+    <div class="actor user">
+      <div class="actor-icon">👤</div>
+      <div class="actor-label">あなた</div>
+      <div class="doc-icon">📄</div>
+    </div>
+
+    <!-- 矢印 -->
+    <div class="flow-arrow vertical">
+      ⬇ 投稿
+    </div>
+
+    <!-- AI -->
+    <div class="actor ai">
+      <div class="actor-icon">🤖</div>
+      <div class="actor-label">AI</div>
+      <div class="scissors-action">✂️</div>
+    </div>
+
+    <!-- 矢印 -->
+    <div class="flow-arrow vertical">
+      ⬇ 整理
+    </div>
   </div>
 
-  <!-- 矢印 -->
-  <div class="flow-arrow">
-    ➡ 投稿
-  </div>
-
-  <!-- AI -->
-  <div class="actor ai">
-    <div class="actor-icon">🤖</div>
-    <div class="actor-label">AI</div>
-    <div class="scissors-action">✂️</div>
-  </div>
-
-  <!-- 矢印 -->
-  <div class="flow-arrow">
-    ➡ 整理
-  </div>
-
-  <!-- カード -->
-  <div class="cards">
-    <div class="card-group">
+  <!-- 下段：カード (横並び) -->
+  <div class="cards horizontal-cards">
+    <div class="card-group vertical-group">
       <div class="card card-objective">
         <div class="card-icon">😫</div>
         <div class="card-content">
@@ -184,9 +187,9 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
           <div class="card-desc">「〜〜で困っている」</div>
         </div>
       </div>
-      <div class="match-arrow">⬅ <strong>「困った...」</strong> でヒット</div>
+      <div class="match-arrow up-arrow">⬆ <strong>「困った...」</strong> でヒット</div>
     </div>
-    <div class="card-group">
+    <div class="card-group vertical-group">
       <div class="card card-solution">
         <div class="card-icon">💡</div>
         <div class="card-content">
@@ -194,7 +197,7 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
           <div class="card-desc">「〜〜が効果的だ」</div>
         </div>
       </div>
-      <div class="match-arrow">⬅ <strong>「知りたい！」</strong> でヒット</div>
+      <div class="match-arrow up-arrow">⬆ <strong>「知りたい！」</strong> でヒット</div>
     </div>
   </div>
 </div>
@@ -207,49 +210,78 @@ Issueには、以下の2点を**具体的に**書いてください。これが�
 <style>
 .split-container {
   display: flex;
+  flex-direction: column; /* 縦並び */
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  margin-top: 10px;
+  gap: 10px;
+  margin-top: 5px;
+}
+.actor-flow {
+  display: flex;
+  flex-direction: column; /* アクターも縦並び */
+  align-items: center;
+  gap: 5px;
 }
 .actor {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
+  align-items: center; /* 横長にする */
+  padding: 10px 20px;
   background: #fff;
   border-radius: 12px;
   border: 2px solid #ddd;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 100px;
+  width: auto;
+  min-width: 150px;
+  justify-content: center;
+  gap: 10px;
   position: relative;
 }
-.actor-icon { font-size: 50px; }
-.actor-label { font-weight: bold; margin-top: 5px; color: #333; }
-.doc-icon {
-  font-size: 30px;
+.actor-icon { font-size: 40px; }
+.actor-label { font-weight: bold; font-size: 24px; color: #333; margin-top: 0; }
+
+.doc-icon, .scissors-action {
+  font-size: 24px;
   position: absolute;
-  bottom: -10px;
+  top: -10px;
   right: -10px;
   background: #fff;
   border-radius: 50%;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  padding: 5px;
 }
-.scissors-action {
-  font-size: 30px;
-  position: absolute;
-  bottom: -10px;
-  right: -10px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-.flow-arrow {
-  text-align: center;
+
+.flow-arrow.vertical {
   font-size: 20px;
   color: #ccc;
   font-weight: bold;
+  margin: 0;
 }
+
+.cards.horizontal-cards {
+  display: flex;
+  flex-direction: row; /* カードは横並び */
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.card-group.vertical-group {
+  display: flex;
+  flex-direction: column; /* カードと説明は縦並び */
+  align-items: center;
+  gap: 5px;
+}
+
+.card {
+  /* 既存のスタイルを維持しつつ調整 */
+  padding: 10px 15px;
+  min-width: 250px; /* 少し狭く */
+}
+
+.match-arrow.up-arrow {
+  font-size: 16px;
+  margin-top: 5px;
+}
+</style>
 .source-doc {
   background: #fdfefe;
   border: 2px solid #ccc;
