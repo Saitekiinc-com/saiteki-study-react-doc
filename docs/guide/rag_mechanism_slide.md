@@ -1,8 +1,8 @@
 ---
-title: RAG Mechanism (Slides)
+title: Knowledge Cycle (Slides)
 ---
 
-# 🤖 AI司書さんはどうやって本を探しているの？
+# 📚 読書を「チームの武器」に変える仕組み
 
 <div style="aspect-ratio: 16/9; width: 100%; border: 1px solid #ccc; overflow: hidden; border-radius: 8px;">
   <iframe
