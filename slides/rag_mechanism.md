@@ -276,49 +276,11 @@ AIが感想文を受け取り、自動で<strong>「悩み」</strong>と<strong
   margin-top: 5px;
 }
 </style>
-.source-doc {
-  background: #fdfefe;
-  border: 2px solid #ccc;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 140px;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-  flex-shrink: 0;
-}
-.split-arrow {
-  text-align: center;
-  font-size: 30px;
-  color: #ccc;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.reason-label { font-size: 14px; color: #666; font-weight: bold; margin-top: -10px;}
-.scissors { font-size: 40px; }
-.cards {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.card-group {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-.card {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 10px 20px;
-  border-radius: 12px;
-  width: auto; /* 幅を自動調整 */
-  min-width: 320px; /* 最低幅を確保 */
-  white-space: nowrap; /* 改行禁止 */
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border-left: 8px solid;
-  background: #fff;
-}
+
+<style>
+/* ... (Existing styles maintained implicitly? No, I need to provide the full replacement for the target block) */
+/* Actually, I will insert the missing styles BEFORE the closing tag and remove the text AFTER it */
+
 .card-objective { border-color: #e74c3c; background: #fdedec; }
 .card-solution { border-color: #2ecc71; background: #eafaf1; }
 
@@ -332,12 +294,10 @@ AIが感想文を受け取り、自動で<strong>「悩み」</strong>と<strong
 }
 
 .card-icon { font-size: 30px; }
-.card-title { font-weight: bold; font-size: 20px; color: #333; }
-.card-desc { font-size: 18px; color: #555; margin-left: auto; } /* 説明を右寄せ */
 .caption {
   text-align: center;
-  margin-top: 20px;
-  font-size: 20px;
+  margin-top: 10px; /* マージン縮小 */
+  font-size: 18px;
   color: #555;
 }
 .reason-highlight {
