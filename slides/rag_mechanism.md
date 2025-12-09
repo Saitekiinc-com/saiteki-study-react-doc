@@ -147,13 +147,87 @@ Issueを書くとき、以下の2つが重要な「検索キー」になりま�
 
 ## 3. 🤖 繋ぐ：AI司書の仕事 (裏側)
 
-投稿された感想文は、AIによって整理整頓されます。
+<div class="split-container">
+  <div class="source-doc">
+    <div class="icon">📄</div>
+    <div class="label">読書感想文</div>
+    <div class="sub">1つの記事</div>
+  </div>
+  <div class="split-arrow">
+    <div class="scissors">✂️</div>
+    <div class="arrow-line">➡</div>
+  </div>
+  <div class="cards">
+    <div class="card card-objective">
+      <div class="card-icon">😫</div>
+      <div class="card-title">悩みカード</div>
+      <div class="card-desc">「〜〜で困ってる」</div>
+    </div>
+    <div class="card card-solution">
+      <div class="card-icon">💡</div>
+      <div class="card-title">解決策カード</div>
+      <div class="card-desc">「〜〜が効く！」</div>
+    </div>
+  </div>
+</div>
 
-*   **ここがポイント！Parent-Child Indexing**
-    *   AIはあなたの感想文を「悩みカード」と「解決策カード」に切り分けて管理しています。
-    *   これにより、膨大な感想文の中から**「まさにその悩み！」**や**「ズバリその解決策！」**をピンポイントで見つけ出せるようになりました。
+<div class="caption">
+  AIは感想文を<strong>「悩み」</strong>と<strong>「解決策」</strong>に切り分けて保存します。<br>
+  これにより、ピンポイントな検索が可能になります。
+</div>
 
-(※難しい話はさておき、AIが賢く整理してくれていると思ってください)
+<style>
+.split-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+.source-doc {
+  background: #fdfefe;
+  border: 2px solid #ccc;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  width: 150px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+}
+.split-arrow {
+  text-align: center;
+  font-size: 30px;
+  color: #ccc;
+}
+.scissors { font-size: 40px; }
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  border-radius: 12px;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-left: 8px solid;
+  background: #fff;
+}
+.card-objective { border-color: #e74c3c; background: #fdedec; }
+.card-solution { border-color: #2ecc71; background: #eafaf1; }
+
+.card-icon { font-size: 30px; }
+.card-title { font-weight: bold; font-size: 20px; color: #333; }
+.card-desc { font-size: 16px; color: #555; }
+.caption {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 20px;
+  color: #555;
+}
+</style>
 
 ---
 
