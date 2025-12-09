@@ -263,20 +263,18 @@ AIが、あなたの感想文を読み取り、検索可能な**ベクトルデ�
     </div>
   </div>
 
-  <div class="arrow">➡️</div>
-
   <!-- Processing Phase -->
   <div class="phase processing">
     <div class="phase-label">2. ベクトル化 (AI)</div>
     <div class="process-step">
-      <div class="step-box">🧩 悩みChunk</div>
-      <div class="step-arrow">➡️ 🤖 Embedding API ➡️</div>
-      <div class="step-box vector">[0.1, 0.5, ...]</div>
+      <div class="step-line">🧩 悩みChunk</div>
+      <div class="step-line">➡️ 🤖 Embedding API</div>
+      <div class="step-line">➡️ <span class="vector">[0.1, 0.5, ...]</span></div>
     </div>
     <div class="process-step">
-      <div class="step-box">💡 解決Chunk</div>
-      <div class="step-arrow">➡️ 🤖 Embedding API ➡️</div>
-      <div class="step-box vector">[0.8, 0.2, ...]</div>
+      <div class="step-line">💡 解決Chunk</div>
+      <div class="step-line">➡️ 🤖 Embedding API</div>
+      <div class="step-line">➡️ <span class="vector">[0.8, 0.2, ...]</span></div>
     </div>
   </div>
 
@@ -344,18 +342,22 @@ AIが、あなたの感想文を読み取り、検索可能な**ベクトルデ�
 
 .process-step {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  flex-direction: column; /* Stack vertically */
+  align-items: flex-start; /* Align left */
+  width: 90%; /* Fit within container */
   margin-bottom: 10px;
   background: #fff;
-  padding: 5px;
+  padding: 8px;
   border-radius: 6px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-.step-box { font-weight: bold; font-size: 12px; }
-.step-box.vector { font-family: monospace; color: #e67e22; }
-.step-arrow { font-size: 10px; color: #999; }
+.step-line {
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 2px;
+  white-space: nowrap;
+}
+.vector { font-family: monospace; color: #e67e22; }
 
 .db-icon { font-size: 40px; margin-top: 20px; }
 .desc { font-size: 12px; color: #666; text-align: center; }
