@@ -142,8 +142,8 @@ Issueテンプレートには、以下の項目を入力します。
   <div class="col-text">
     <ul>
       <li>基本情報 (書籍名 / 著者 / リンク)</li>
-      <li><span class="marker-key">🔑 読む前の目的</span> ➡️ <strong>「悩み」</strong>でヒット</li>
-      <li><span class="marker-key">🔑 得られた知識</span> ➡️ <strong>「解決策」</strong>でヒット</li>
+      <li><span class="marker-key">🔑 読む前の目的</span></li>
+      <li><span class="marker-key">🔑 得られた知識</span></li>
       <li>要約・Positive / Negative感想</li>
       <li>どんな人におすすめ？</li>
     </ul>
